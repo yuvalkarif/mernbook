@@ -1,0 +1,19 @@
+{
+  "name": "mernbook",
+  "version": "1.0.0",
+  "description": "mern stack facebook clone",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js"
+  },
+  "author": "Yuval Karif <yuvalkarif3@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13"
+  }
+}
