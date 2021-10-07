@@ -9,6 +9,10 @@ const userSchema = new Schema({
   followers: [{ type: mongoose.Types.ObjectId, ref: "User" }],
   posts: [{ type: mongoose.Types.ObjectId, ref: "Post" }],
   picture: { type: String },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   about: {
     summary: { type: String },
     work: { type: String },
