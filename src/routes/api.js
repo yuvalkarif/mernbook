@@ -3,6 +3,10 @@ import * as userController from "../controllers/userController";
 
 let router = Router();
 router.post("/signup", userController.signup);
+router.post("/login", userController.login);
+router.get("/currentUser", userController.currentUser);
+router.get("/user", userController.getUser);
+router.patch("/user", userController.updateUser);
 
 export default router;
 
@@ -11,8 +15,8 @@ export default router;
 /*
     x API Route-Manage all CRUD Options
     x User
-    x -Login
-    x -Register
+    v -Login
+    v -Register
     x -Get User Profile
     x -Update
      x -Follow

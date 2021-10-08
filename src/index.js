@@ -5,6 +5,7 @@ import mongodb from "./configs/database";
 import apiRouter from "./routes/api";
 import dotenv from "dotenv";
 import passportConfig from "./configs/passport";
+import { errorHandler } from "./helpers/error";
 dotenv.config();
 
 //Initilizing
@@ -30,7 +31,7 @@ passportConfig(passport);
 
 //Routing
 app.use("/api", apiRouter);
-
+app.use(errorHandler);
 app.get("/", (req, res) => {
   res.send("welcome to node with babel");
 });

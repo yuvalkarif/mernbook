@@ -21,17 +21,13 @@ const passportSetup = (passport) => {
       }
     })
   );
-  passport.serializeUser((user, cb) => {
-    cb(null, user.id);
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
   });
-  passport.deserializeUser(async (id, cb) => {
-    User.findOne(
-      { _id: id },
-      (err,
-      (user) => {
-        cb(err, userInformaion);
-      })
-    );
+  passport.deserializeUser(async (id, done) => {
+    User.findOne({ _id: id }, (err, user) => {
+      done(err, user);
+    });
   });
 };
 
