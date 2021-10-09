@@ -32,9 +32,6 @@ passportConfig(passport);
 //Routing
 app.use("/api", apiRouter);
 app.use(errorHandler);
-app.get("/", (req, res) => {
-  res.send("welcome to node with babel");
-});
 
 //Activating
 const port = process.env.PORT || 3001;

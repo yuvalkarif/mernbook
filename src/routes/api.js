@@ -1,12 +1,18 @@
 import { Router } from "express";
 import * as userController from "../controllers/userController";
+import * as postController from "../controllers/postController";
 
 let router = Router();
+//User
 router.post("/signup", userController.signup);
 router.post("/login", userController.login);
 router.get("/currentUser", userController.currentUser);
 router.get("/user", userController.getUser);
 router.patch("/user", userController.updateUser);
+
+router.post("/post", postController.createPost);
+router.patch("/post", postController.updatePost);
+router.delete("/post", postController.removePost);
 
 export default router;
 
