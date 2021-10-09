@@ -13,6 +13,7 @@ router.patch("/user", userController.updateUser);
 router.post("/post", postController.createPost);
 router.patch("/post", postController.updatePost);
 router.delete("/post", postController.removePost);
+router.get("/post", postController.readPost);
 
 export default router;
 

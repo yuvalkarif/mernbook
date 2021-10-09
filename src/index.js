@@ -6,6 +6,8 @@ import apiRouter from "./routes/api";
 import dotenv from "dotenv";
 import passportConfig from "./configs/passport";
 import { errorHandler } from "./helpers/error";
+import compression from "compression";
+import helmet from "helmet";
 dotenv.config();
 
 //Initilizing
@@ -24,6 +26,8 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(compression());
+app.use(helmet());
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());

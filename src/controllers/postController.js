@@ -82,4 +82,18 @@ export const removePost = async (req, res, next) => {
   }
 };
 
+export const readPost = async (req, res, next) => {
+  const { postId } = req.body;
+  if (postId) {
+    let post;
+    try {
+      post = await Post.findOne({ _id: postId });
+    } catch (err) {
+      next(err);
+    }
+    res.send(post ? post : "Post not Found");
+  } else {
+    res.send("No Post ID");
+  }
+};
 //CreateReadUpdateDelete
