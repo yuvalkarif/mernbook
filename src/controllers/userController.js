@@ -143,6 +143,12 @@ export const unfollowUser = async (req, res, next) => {
   } else {
     res
       .status(404)
-      .send(id ? "No Valid ID Detected" : "No Valid UserID Detected");
+      .send(
+        id
+          ? "No Valid ID Detected"
+          : userId
+          ? "No Valid UserID Detected"
+          : "No Valid User and  ID Detected"
+      );
   }
 };

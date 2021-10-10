@@ -17,6 +17,7 @@ router.patch("/post", postController.updatePost);
 router.delete("/post", postController.removePost);
 router.get("/post", postController.readPost);
 router.get("/feed", postController.readPostsByFollowed);
+router.put("/like", postController.likePost);
 //Comments
 router.post("/comment", postController.createComment);
 router.delete("/comment", postController.removeComment);
@@ -34,11 +35,11 @@ export default router;
      V -Unfollow
      V -Edit About
     V Posts
-    x -Get All Posts By Followed
-    x -Add new Post
-    x -Edit your Posts
-    x -Like/Unlike
-    x -Comment 
+    V -Get All Posts By Followed
+    V -Add new Post
+    V -Edit your Posts
+    V -Like/Unlike
+    V -Comment 
      x -Edit
      x -Like/Unlike
 */

@@ -182,4 +182,45 @@ export const readPostsByFollowed = async (req, res, next) => {
   }
 };
 
+export const likePost = async (req, res, next) => {
+  const { id, postId } = req.body;
+  if (id && postId) {
+    let user;
+    let post;
+    try {
+      user = await User.findOne({ _id: id });
+      post = await Post.findOne({ _id: postId });
+    } catch (error) {
+      next(error);
+    }
+    if (user && post) {
+      post.likes = addObjToArray(post.likes, id);
+      try {
+        await post.save();
+      } catch (error) {
+        next(error);
+      }
+      res.send(post);
+    } else {
+      res.status(404).send(user ? "Post not Found" : "User not Found");
+    }
+  } else {
+    res
+      .status(404)
+      .send(
+        id
+          ? "No Valid Post Detected"
+          : userId
+          ? "No Valid UserID Detected"
+          : "No Valid User and Post ID Detected"
+      );
+  }
+};
 //CreateReadUpdateDelete
+
+// helpers
+function addObjToArray(arr, obj) {
+  const resultArr = arr.filter((arrObj) => arrObj._id?.toString() !== obj);
+  if (resultArr.length === arr.length) resultArr.push(obj);
+  return resultArr;
+}
