@@ -26,8 +26,13 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(compression());
-app.use(helmet());
+if (process.NODE_ENV == "production") {
+  console.log("Production Mode");
+  app.use(compression());
+  app.use(helmet());
+} else {
+  console.log("Development Mode");
+}
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());

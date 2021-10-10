@@ -22,7 +22,7 @@ export const signup = async (req, res, next) => {
       savedUser = await newUser.save();
       res.send("User Registered Successfully");
     } else {
-      res.send("User Already Exists");
+      res.status(405).send("User Already Exists");
     }
   } catch (error) {
     next(error);
@@ -33,7 +33,7 @@ export const login = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) next(err);
     if (!user) {
-      res.send("No User Exists");
+      res.status(403).send("No User Exists");
     } else {
       req.logIn(user, (err) => {
         if (err) {
@@ -46,7 +46,7 @@ export const login = (req, res, next) => {
 };
 
 export const currentUser = (req, res, next) => {
-  res.send(req?.user ?? "User not logged in");
+  user ? res.send(req?.user) : res.status(401).send("User not logged in");
 };
 
 export const getUser = async (req, res, next) => {
@@ -58,9 +58,9 @@ export const getUser = async (req, res, next) => {
     } catch (err) {
       next(err);
     }
-    user ? res.send(user) : res.send("User does not Exist");
+    user ? res.send(user) : res.status(404).send("User does not Exist");
   }
-  res.send("No ID");
+  res.status(404).send("No ID");
 };
 
 export const updateUser = async (req, res, next) => {
@@ -80,5 +80,69 @@ export const updateUser = async (req, res, next) => {
       next(error);
     }
     res.send("User Updated Successfully");
-  } else res.send("No ID");
+  } else res.status(404).send("No ID");
+};
+
+export const followUser = async (req, res, next) => {
+  const { id, userId } = req.body;
+
+  if (id && userId) {
+    let user;
+    let userToFollow;
+    try {
+      user = await User.findOne({ _id: id });
+      userToFollow = await User.findOne({ _id: userId });
+    } catch (error) {
+      next(error);
+    }
+    if (user && userToFollow) {
+      userToFollow.followers.push(user);
+      user.following.push(userToFollow);
+      try {
+        await user.save();
+        await userToFollow.save();
+      } catch (error) {
+        next(error);
+      }
+      res.send("Followed User");
+    } else {
+      res.status(404).send("Users not Found");
+    }
+  } else {
+    res
+      .status(404)
+      .send(id ? "No Valid ID Detected" : "No Valid UserID Detected");
+  }
+};
+
+export const unfollowUser = async (req, res, next) => {
+  const { id, userId } = req.body;
+
+  if (id && userId) {
+    let user;
+    let userToFollow;
+    try {
+      user = await User.findOne({ _id: id });
+      userToFollow = await User.findOne({ _id: userId });
+    } catch (error) {
+      next(error);
+    }
+    if (user && userToFollow) {
+      userToFollow.followers.filter((follower) => follower.id !== id);
+      user.following.filter((follower) => follower.id !== userId);
+      try {
+        await user.save();
+        await userToFollow.save();
+      } catch (error) {
+        next(error);
+      }
+      res.send("Unfollowed User");
+    } else {
+      res.status(404).send("Users not Found");
+    }
+  } else {
+    res
+      .status(404)
+      .send(id ? "No Valid ID Detected" : "No Valid UserID Detected");
+  }
 };

@@ -8,20 +8,28 @@ export const createPost = async (req, res, next) => {
     let newPost;
     try {
       user = await User.findOne({ _id: id });
-      newPost = new Post({
-        creator: user,
-        body: body,
-      });
-      await newPost.save();
-      user.posts.push(newPost);
-      await user.save();
     } catch (err) {
       next(err);
     }
-
-    res.send({ newPost, user });
+    if (user) {
+      newPost = new Post({
+        creator: user,
+        body: body,
+        picture,
+      });
+      try {
+        user.posts.push(newPost);
+        await newPost.save();
+        await user.save();
+      } catch (error) {
+        next(error);
+      }
+      res.send({ newPost, user });
+    } else {
+      res.status(404).send("User not Found");
+    }
   } else {
-    res.send("No User Detected");
+    res.status(404).send("No Valid User Detected");
   }
 };
 
@@ -50,7 +58,7 @@ export const updatePost = async (req, res, next) => {
       res.send("You are not the creator of the post or it doesn't exists");
     }
   } else {
-    res.send(id ? "No Post Detected" : "No User Detected");
+    res.send(id ? "No Valid Post Detected" : "No Valid User Detected");
   }
 };
 
@@ -75,10 +83,10 @@ export const removePost = async (req, res, next) => {
       }
       res.send("Post Deleted Successfully");
     } else {
-      res.send(post ? "No User Found" : "No Post Found");
+      res.send(post ? "No Valid User Found" : "No Valid Post Found");
     }
   } else {
-    res.send(id ? "No Post Detected" : "No User Detected");
+    res.send(id ? "No Valid Post Detected" : "No Valid User Detected");
   }
 };
 
@@ -93,7 +101,85 @@ export const readPost = async (req, res, next) => {
     }
     res.send(post ? post : "Post not Found");
   } else {
-    res.send("No Post ID");
+    res.send("No Valid Post ID");
   }
 };
+
+export const createComment = async (req, res, next) => {
+  const { id, postId, body } = req.body;
+  if (postId && id) {
+    let post;
+    let user;
+    try {
+      user = await User.findOne({ _id: id });
+      post = await Post.findOne({ _id: postId });
+    } catch (err) {
+      next(err);
+    }
+    if (post) {
+      const newComment = { body, creator: user };
+      post.comments.push(newComment);
+      post.save();
+      res.send("Comment added Successfully");
+    } else {
+      res.send("Post not Found");
+    }
+  } else {
+    res.send(id ? "No Valid PostID Detected" : "No Valid UserID Detected");
+  }
+};
+
+export const removeComment = async (req, res, next) => {
+  const { commentId, postId } = req.body;
+  if (commentId && postId) {
+    let post;
+    try {
+      post = await Post.findOne({ _id: postId });
+    } catch (error) {
+      next(error);
+    }
+    post.comments = post.comments.filter((comment) => comment.id !== commentId);
+    try {
+      await post.save();
+    } catch (error) {
+      next(error);
+    }
+    res.send("Comment removed Successfully");
+  } else {
+    res.send(postId ? "No Valid PostID Detected" : "No Valid Comment Detected");
+  }
+};
+
+export const readPostsByFollowed = async (req, res, next) => {
+  const { id } = req.body;
+  if (id) {
+    let user;
+    let postIds = [];
+    let posts;
+    try {
+      user = await User.findOne({ _id: id }, "following").populate({
+        path: "following",
+        select: "posts",
+      });
+    } catch (error) {
+      next(error);
+    }
+    if (user) {
+      for (const followings of user.following) {
+        postIds = postIds.concat(followings.posts);
+      }
+      try {
+        posts = await Post.find({ _id: { $in: postIds } });
+      } catch (error) {
+        next(error);
+      }
+      res.send(posts);
+    } else {
+      res.status(404).send("User not Found");
+    }
+  } else {
+    res.status(404).send("No ID");
+  }
+};
+
 //CreateReadUpdateDelete

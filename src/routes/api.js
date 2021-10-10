@@ -4,32 +4,36 @@ import * as postController from "../controllers/postController";
 
 let router = Router();
 //User
-router.post("/signup", userController.signup);
-router.post("/login", userController.login);
-router.get("/currentUser", userController.currentUser);
-router.get("/user", userController.getUser);
-router.patch("/user", userController.updateUser);
-
+router.post("/signup", userController.signup); // (username,password,displayname)
+router.post("/login", userController.login); // (username,password)
+router.get("/currentUser", userController.currentUser); // to be logged in ()
+router.get("/user", userController.getUser); // (id)
+router.patch("/user", userController.updateUser); // (id, picture?, summary?, work?, education?, birthday?)
+router.patch("/follow", userController.followUser); // (id,userId)
+router.patch("/unfollow", userController.unfollowUser); // (id,userId)
+//Post
 router.post("/post", postController.createPost);
 router.patch("/post", postController.updatePost);
 router.delete("/post", postController.removePost);
 router.get("/post", postController.readPost);
+router.get("/feed", postController.readPostsByFollowed);
+//Comments
+router.post("/comment", postController.createComment);
+router.delete("/comment", postController.removeComment);
 
 export default router;
 
-// router.get("/",controller.func())
-
 /*
     x API Route-Manage all CRUD Options
-    x User
+    V User
     v -Login
     v -Register
-    x -Get User Profile
-    x -Update
-     x -Follow
-     x -Unfollow
-     x -Edit About
-    x Posts
+    V -Get User Profile
+    V -Update
+     V -Follow
+     V -Unfollow
+     V -Edit About
+    V Posts
     x -Get All Posts By Followed
     x -Add new Post
     x -Edit your Posts

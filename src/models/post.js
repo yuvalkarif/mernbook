@@ -10,7 +10,6 @@ const postSchema = new Schema({
       body: { type: String, required: true },
       creator: { type: mongoose.Types.ObjectId, ref: "User", required: true },
       date: { type: Date, default: Date.now },
-      likes: [{ type: mongoose.Types.ObjectId, ref: "User" }],
     },
   ],
   date: { type: Date, default: Date.now },
