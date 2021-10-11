@@ -20,9 +20,9 @@ export const signup = async (req, res, next) => {
       });
 
       savedUser = await newUser.save();
-      res.send("User Registered Successfully");
+      res.send("User registered successfully");
     } else {
-      res.status(405).send("User Already Exists");
+      res.status(405).send("User already exists");
     }
   } catch (error) {
     next(error);
@@ -33,7 +33,7 @@ export const login = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) next(err);
     if (!user) {
-      res.status(403).send("No User Exists");
+      res.status(403).send("User doesn't exists");
     } else {
       req.logIn(user, (err) => {
         if (err) {
