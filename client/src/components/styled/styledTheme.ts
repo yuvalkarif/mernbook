@@ -26,3 +26,8 @@ export const Container = styled.div`
   padding: 1rem;
   background-color: ${({ theme }) => theme.containerBg};
 `;
+export const FormError = styled.p`
+  color: ${({ theme }) => theme.errorText};
+  margin: 0;
+  text-align: center;
+`;

@@ -4,13 +4,10 @@ export const theme = {
 
   accentBtnText: "#ffffff",
   accentBtnBg: "#2d88ff",
-
+  errorText: "#e00029",
   altAccent: "#00a75d",
-
   altText: "#2e89ff",
-
   mainText: "#b0b3b8",
-
   containerBg: "#242526",
   mainBg: "#1c1e21",
 };

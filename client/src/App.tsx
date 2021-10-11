@@ -5,14 +5,15 @@ import "./App.css";
 // import Login from "./components/login/Login";
 const { Login } = lazily(() => import("./components/login/Login"));
 const { Signup } = lazily(() => import("./components/signup/Signup"));
+
 function App() {
   return (
     <Router>
       <Suspense fallback={<p>Loading...</p>}>
         <Switch>
           <Route path="/">
-            <Signup />
-            {/* <Login /> */}
+            {/* <Signup /> */}
+            <Login />
           </Route>
         </Switch>
       </Suspense>
