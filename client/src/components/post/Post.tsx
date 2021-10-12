@@ -2,7 +2,15 @@ import { useEffect } from "react";
 import { useFetchPost } from "../../hooks/useFetchPost";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { MediumImage } from "../styled/styledTheme";
-import { PostContainer, Image } from "./Post.styles";
+import {
+  PostContainer,
+  Image,
+  Actions,
+  SmallCommentIcon,
+  SmallLikeIcon,
+  ActionButton,
+  BigLikeIcon,
+} from "./Post.styles";
 import Moment from "react-moment";
 import "moment-timezone";
 export const Post = ({ postId }: { postId: string }) => {
@@ -28,6 +36,30 @@ export const Post = ({ postId }: { postId: string }) => {
         </span>
         <p>{post?.body}</p>
         {post?.picture && <Image src={post.picture} />}
+        <div>
+          <Actions>
+            <div>
+              <span>
+                <SmallLikeIcon />
+                {post?.likes?.length}
+              </span>
+              <span>
+                {post?.likes?.length}
+                <SmallCommentIcon />
+              </span>
+            </div>
+            <div>
+              <ActionButton>
+                <BigLikeIcon />
+                Like
+              </ActionButton>
+              <ActionButton>
+                <BigLikeIcon />
+                Comment
+              </ActionButton>
+            </div>
+          </Actions>
+        </div>
       </PostContainer>
     </>
   );
