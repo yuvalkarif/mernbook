@@ -6,30 +6,36 @@ import {
   WorkIcon,
   AboutContainer,
 } from "./Profile.styles";
-export const ProfileAbout = ({ about }: { about: User["about"] | any }) => {
+export const ProfileAbout = ({
+  about,
+}: {
+  about: User["about"] | undefined;
+}) => {
   return (
     <>
       <AboutContainer>
         <h2>About</h2>
-        {about.education && (
+        {about?.education && (
           <span>
             <EduIcon />
             Went to <strong>{about.education}</strong>
           </span>
         )}
-        {about.work && (
-          <span>
-            <WorkIcon />
-            Works at <strong> {about.work}</strong>
-          </span>
-        )}
-        {about.birthday && (
+        {about
+          ? about?.work && (
+              <span>
+                <WorkIcon />
+                Works at <strong> {about.work}</strong>
+              </span>
+            )
+          : null}
+        {about?.birthday && (
           <span>
             <BirthdayIcon />
             Born <strong>{about.birthday}</strong>
           </span>
         )}
-        {/* {about.birthday && (
+        {/* {about?.birthday && (
           <span>
             <TimeIcon />
             Born {about.work}

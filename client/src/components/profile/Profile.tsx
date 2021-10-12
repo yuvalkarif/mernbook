@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ProfileHeader } from "./ProfileHeader";
+import { ProfileAbout } from "./ProfileAbout";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { useTitle } from "../../hooks/useTitle";
 import { Wrapper } from "../styled/styledTheme";
@@ -19,7 +20,10 @@ export const Profile: React.FC = () => {
       {/* <h1>Profile</h1>
         {error && <p>Error {error}</p>}
         {user && <p>User fetched</p>} */}
-      {user && <ProfileHeader user={user} />}
+      <ProfileHeader user={user} />
+      <Wrapper>
+        <ProfileAbout about={user?.about} />
+      </Wrapper>
       {/* </Wrapper> */}
     </>
   );
