@@ -32,10 +32,20 @@ export const login = async (account: Account) => {
   }
 };
 
-export const getUser = async (id: String) => {
+export const getUser = async (id: string) => {
   let request;
   try {
     request = await axios.get(`${config.API_URL}/user/${id}`);
+  } catch (error) {
+    throw error;
+  }
+  return request.data;
+};
+
+export const getPost = async (id: string) => {
+  let request;
+  try {
+    request = await axios.get(`${config.API_URL}/post/${id}`);
   } catch (error) {
     throw error;
   }

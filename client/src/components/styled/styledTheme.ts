@@ -31,3 +31,13 @@ export const FormError = styled.p`
   margin: 0;
   text-align: center;
 `;
+export const MediumImage = styled.img`
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 100%;
+`;
+export const SmallImage = styled.img`
+  max-width: 32px;
+  max-height: 32px;
+  border-radius: 100%;
+`;

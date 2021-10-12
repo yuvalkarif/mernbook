@@ -1,9 +1,10 @@
 import User from "../models/user";
 import Post from "../models/post";
+import { Types } from "mongoose";
 
 export const createPost = async (req, res, next) => {
   const { id, body, picture } = req.body;
-  if (id) {
+  if (id && Types.ObjectId.isValid(id)) {
     let user;
     let newPost;
     try {
@@ -35,7 +36,12 @@ export const createPost = async (req, res, next) => {
 
 export const updatePost = async (req, res, next) => {
   const { id, postId, body, picture } = req.body;
-  if (id && postId) {
+  if (
+    id &&
+    postId &&
+    Types.ObjectId.isValid(id) &&
+    Types.ObjectId.isValid(postId)
+  ) {
     let user;
     let post;
     try {
@@ -64,7 +70,12 @@ export const updatePost = async (req, res, next) => {
 
 export const removePost = async (req, res, next) => {
   const { id, postId } = req.body;
-  if (id && postId) {
+  if (
+    id &&
+    postId &&
+    Types.ObjectId.isValid(id) &&
+    Types.ObjectId.isValid(postId)
+  ) {
     let user;
     let post;
     try {
@@ -91,15 +102,19 @@ export const removePost = async (req, res, next) => {
 };
 
 export const readPost = async (req, res, next) => {
-  const { postId } = req.body;
-  if (postId) {
+  const { postId } = req.params;
+  if (postId && Types.ObjectId.isValid(postId)) {
     let post;
     try {
       post = await Post.findOne({ _id: postId });
     } catch (err) {
       next(err);
     }
-    res.send(post ? post : "Post not Found");
+    if (post) {
+      res.send(post);
+    } else {
+      res.status(404).send("Post not Found");
+    }
   } else {
     res.send("No Valid Post ID");
   }
@@ -107,7 +122,12 @@ export const readPost = async (req, res, next) => {
 
 export const createComment = async (req, res, next) => {
   const { id, postId, body } = req.body;
-  if (postId && id) {
+  if (
+    postId &&
+    id &&
+    Types.ObjectId.isValid(id) &&
+    Types.ObjectId.isValid(postId)
+  ) {
     let post;
     let user;
     try {
@@ -131,7 +151,12 @@ export const createComment = async (req, res, next) => {
 
 export const removeComment = async (req, res, next) => {
   const { commentId, postId } = req.body;
-  if (commentId && postId) {
+  if (
+    commentId &&
+    postId &&
+    Types.ObjectId.isValid(postId) &&
+    Types.ObjectId.isValid(commentId)
+  ) {
     let post;
     try {
       post = await Post.findOne({ _id: postId });
@@ -152,7 +177,7 @@ export const removeComment = async (req, res, next) => {
 
 export const readPostsByFollowed = async (req, res, next) => {
   const { id } = req.body;
-  if (id) {
+  if (id && Types.ObjectId.isValid(id)) {
     let user;
     let postIds = [];
     let posts;
@@ -184,7 +209,12 @@ export const readPostsByFollowed = async (req, res, next) => {
 
 export const likePost = async (req, res, next) => {
   const { id, postId } = req.body;
-  if (id && postId) {
+  if (
+    id &&
+    postId &&
+    Types.ObjectId.isValid(id) &&
+    Types.ObjectId.isValid(postId)
+  ) {
     let user;
     let post;
     try {

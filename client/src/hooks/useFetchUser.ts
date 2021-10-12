@@ -5,7 +5,7 @@ import { getUser } from "../helpers/api";
 export const useFetchUser = () => {
   const [user, setUser] = useState<User | undefined>();
   const [error, setError] = useState<Boolean | undefined>(false);
-  const setFetchUser = async (id: String) => {
+  const setFetchUser = async (id: string) => {
     try {
       let fetchedUser = await getUser(id);
       console.log(fetchedUser);

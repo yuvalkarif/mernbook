@@ -10,7 +10,7 @@ export interface User {
   password: string;
   following?: [User];
   followers?: [User];
-  posts?: [];
+  posts?: [string];
   picture?: string;
   isAdmin: Boolean;
   about?: {
@@ -19,4 +19,18 @@ export interface User {
     education?: string;
     birthday?: string;
   };
+}
+export interface Post {
+  creator: string;
+  body: string;
+  likes?: [User];
+  comments: [
+    {
+      body: string;
+      creator: User;
+      date: Date;
+    }
+  ];
+  date: Date;
+  picture?: string;
 }
