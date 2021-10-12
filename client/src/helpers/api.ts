@@ -31,3 +31,13 @@ export const login = async (account: Account) => {
     throw Error("Please fill  all of the fields");
   }
 };
+
+export const getUser = async (id: String) => {
+  let request;
+  try {
+    request = await axios.get(`${config.API_URL}/user/${id}`);
+  } catch (error) {
+    throw error;
+  }
+  return request.data;
+};
