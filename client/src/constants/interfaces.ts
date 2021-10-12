@@ -1,22 +1,22 @@
 export interface Account {
-  username: String;
-  displayname?: String;
-  password: String;
+  username: string;
+  displayname?: string;
+  password: string;
 }
 
 export interface User {
-  username: String;
-  displayname: String;
-  password: String;
+  username: string;
+  displayname: string;
+  password: string;
   following?: [User];
   followers?: [User];
   posts?: [];
-  picture?: String;
+  picture?: string;
   isAdmin: Boolean;
   about?: {
-    summary?: String;
-    work?: String;
-    education?: String;
-    birthday?: String;
+    summary?: string;
+    work?: string;
+    education?: string;
+    birthday?: string;
   };
 }

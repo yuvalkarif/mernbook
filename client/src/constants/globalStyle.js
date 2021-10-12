@@ -15,6 +15,10 @@ body {
   h2{
     font-size:1.65rem;
   }
+  h1{
+   color: ${({ theme }) => theme.btnText};
+   font-weight: 600;
+  }
 `;
 
 export default GlobalStyle;

@@ -13,7 +13,7 @@ export const Button = styled.button`
     filter: brightness(110%);
   }
 `;
-export const Wrapper = styled.section`
+export const Wrapper = styled.div`
   width: 90%;
   max-width: 60rem;
   margin: 0 auto;
