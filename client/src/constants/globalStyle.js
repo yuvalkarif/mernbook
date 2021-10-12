@@ -13,7 +13,10 @@ body {
     line-height: 1.6;
   }
   h2{
-    font-size:1.65rem;
+    font-size:1.5rem;
+    color: ${({ theme }) => theme.btnText};
+    font-weight: 600;
+    margin:0;
   }
   h1{
    color: ${({ theme }) => theme.btnText};

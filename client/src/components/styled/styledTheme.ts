@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  box-shadow: 0 1rem 4rem 0 rgba(00, 00, 00, 0.1);
+  /* box-shadow: 0 1rem 4rem 0 rgba(00, 00, 00, 0.1); */
   border-radius: 0.8rem;
   padding: 1rem;
   background-color: ${({ theme }) => theme.containerBg};
