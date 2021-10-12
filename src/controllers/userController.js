@@ -2,6 +2,7 @@ import passport from "passport";
 //Bcrypt
 import bcrypt from "bcrypt";
 const saltRounds = 10;
+import { Types } from "mongoose";
 
 import User from "../models/user";
 
@@ -50,23 +51,24 @@ export const currentUser = (req, res, next) => {
 };
 
 export const getUser = async (req, res, next) => {
-  const { id } = req.body;
-  if (id) {
+  const { id } = req.params;
+  if (id && Types.ObjectId.isValid(id)) {
     let user;
     try {
       user = await User.findOne({ _id: id });
     } catch (err) {
       next(err);
     }
-    user ? res.send(user) : res.status(404).send("User does not Exist");
-  }
-  res.status(404).send("No ID");
+    if (user) {
+      res.send(user);
+    } else res.status(404).send("User does not Exist");
+  } else res.status(404).send("No ID");
 };
 
 export const updateUser = async (req, res, next) => {
   const { id, picture, summary, work, education, birthday } = req.body;
   let user;
-  if (id) {
+  if (id && Types.ObjectId.isValid(id)) {
     try {
       user = await User.findOne({ _id: id });
     } catch (err) {
@@ -86,7 +88,12 @@ export const updateUser = async (req, res, next) => {
 export const followUser = async (req, res, next) => {
   const { id, userId } = req.body;
 
-  if (id && userId) {
+  if (
+    id &&
+    Types.ObjectId.isValid(id) &&
+    userId &&
+    Types.ObjectId.isValid(userId)
+  ) {
     let user;
     let userToFollow;
     try {
@@ -118,7 +125,12 @@ export const followUser = async (req, res, next) => {
 export const unfollowUser = async (req, res, next) => {
   const { id, userId } = req.body;
 
-  if (id && userId) {
+  if (
+    id &&
+    Types.ObjectId.isValid(id) &&
+    userId &&
+    Types.ObjectId.isValid(userId)
+  ) {
     let user;
     let userToFollow;
     try {
