@@ -30,9 +30,9 @@ function App() {
               <ProtectedRoute path={"/"} exact>
                 <Profile />
               </ProtectedRoute>
-              <Route path="/login" exact>
+              <ProtectedRoute path="/login" exact alt>
                 <Login checkForUser={checkForUser} />
-              </Route>
+              </ProtectedRoute>
               <Route path="/signup" exact>
                 <Signup />
               </Route>

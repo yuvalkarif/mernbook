@@ -4,9 +4,10 @@ import { checkUser } from "../helpers/api";
 export const useAuth = () => {
   const [auth, setAuth] = useState<Auth>({});
   useEffect(() => {
-    console.log("Checking for Auth");
-    checkForUser();
-  }, []);
+    if (!auth.isAuth) {
+      checkForUser();
+    }
+  }, [auth]);
   const checkForUser = async () => {
     let req;
     try {
