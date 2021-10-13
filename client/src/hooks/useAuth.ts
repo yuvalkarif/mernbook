@@ -4,19 +4,19 @@ import { checkUser } from "../helpers/api";
 export const useAuth = () => {
   const [auth, setAuth] = useState<Auth>({});
   useEffect(() => {
-    if (!auth.isAuth) {
-      checkForUser();
-    }
-  }, [auth]);
+    console.log("Checking for user");
+    checkForUser();
+  }, []);
   const checkForUser = async () => {
     let req;
     try {
       req = await checkUser();
+      console.log("Auth Succeeded");
       setAuth({ user: req, isAuth: true });
     } catch (error) {
+      console.log("Auth Failed");
       setAuth({ isAuth: false });
-      console.log(error);
     }
   };
-  return [auth, checkForUser, setAuth] as const;
+  return [auth, checkForUser] as const;
 };

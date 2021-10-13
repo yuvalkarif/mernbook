@@ -14,12 +14,7 @@ const { Signup } = lazily(() => import("./components/signup/Signup"));
 const { Profile } = lazily(() => import("./components/profile/Profile"));
 
 function App() {
-  const [user, checkForUser, setAuth] = useAuth();
-  useEffect(() => {
-    if (!user) {
-      checkForUser();
-    }
-  }, [user]);
+  const [user, checkForUser] = useAuth();
 
   return (
     <>

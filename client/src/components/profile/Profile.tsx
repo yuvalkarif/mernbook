@@ -10,7 +10,8 @@ import { ProfileBody } from "./Profile.styles";
 export const Profile: React.FC = () => {
   const id = "615ef566e9be20f1898e44a6";
   const [error, user, setFetchUser] = useFetchUser();
-  useTitle("Profile");
+  useTitle((user?.displayname || "Profile") + " | Mernbook");
+
   useEffect(() => {
     if (id) {
       setFetchUser(id);
