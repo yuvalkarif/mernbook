@@ -10,9 +10,12 @@ import {
   SmallLikeIcon,
   ActionButton,
   BigLikeIcon,
+  Comments,
 } from "./Post.styles";
 import Moment from "react-moment";
 import "moment-timezone";
+import { PostComment } from "./PostComment";
+import { PostComments } from "./PostComments";
 export const Post = ({ postId }: { postId: string }) => {
   const [error, post, setFetchPost] = useFetchPost();
   const [userError, user, setFetchUser] = useFetchUser();
@@ -59,6 +62,7 @@ export const Post = ({ postId }: { postId: string }) => {
               </ActionButton>
             </div>
           </Actions>
+          {post?.comments && <PostComments comments={post?.comments} />}
         </div>
       </PostContainer>
     </>

@@ -24,13 +24,13 @@ export interface Post {
   creator: string;
   body: string;
   likes?: [User];
-  comments: [
-    {
-      body: string;
-      creator: User;
-      date: Date;
-    }
-  ];
+  comments?: [Comment];
   date: Date;
   picture?: string;
+}
+
+export interface Comment {
+  body: string;
+  creator: string;
+  date: Date;
 }

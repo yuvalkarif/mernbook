@@ -27,7 +27,7 @@ export const PostContainer = styled(Container)`
   }
   h4 {
     color: ${({ theme }) => theme.btnText};
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
   }
   & > p {
@@ -62,6 +62,34 @@ export const Actions = styled.div`
     border-bottom: 1px solid ${({ theme }) => theme.btnBg};
   }
 `;
+
+export const Comments = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+`;
+export const CommentWrapper = styled.div`
+  margin-block: 0.5em;
+  time {
+    margin-left: 3rem;
+    font-weight: 400;
+    font-size: 0.75rem;
+  }
+  & > div {
+    display: flex;
+
+    & > div {
+      background-color: ${({ theme }) => theme.btnBg};
+      padding: 0.25em 0.75em;
+      border-radius: 1rem;
+      margin-left: 0.5em;
+      p,
+      h5 {
+        margin: 0;
+      }
+    }
+  }
+`;
 const smallIcon = css`
   fill: ${({ theme }) => theme.btnTxt};
   max-width: 1rem;
@@ -94,6 +122,11 @@ export const ActionButton = styled.button`
     filter: brightness(110%);
     cursor: pointer;
   }
+`;
+export const CommentPic = styled.img`
+  max-width: 2.15rem;
+  max-height: 2.15rem;
+  border-radius: 100%;
 `;
 
 export const SmallLikeIcon = styled(SolidLike)`

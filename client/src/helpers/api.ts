@@ -51,3 +51,10 @@ export const getPost = async (id: string) => {
   }
   return request.data;
 };
+
+export const likePost = async (id: string, postId: string) => {
+  let request;
+  try {
+    request = await axios.patch(`${config.API_URL}/like`);
+  } catch (error) {}
+};

@@ -22,6 +22,15 @@ body {
    color: ${({ theme }) => theme.btnText};
    font-weight: 600;
   }
+  h5{
+    color: ${({ theme }) => theme.btnText};
+   font-weight: 700;
+  }
+  p {
+    color: ${({ theme }) => theme.btnText};
+    font-weight: 400;
+    
+  }
 `;
 
 export default GlobalStyle;

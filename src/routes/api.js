@@ -17,7 +17,7 @@ router.patch("/post", postController.updatePost);
 router.delete("/post", postController.removePost);
 router.get("/post/:postId", postController.readPost);
 router.get("/feed", postController.readPostsByFollowed);
-router.put("/like", postController.likePost);
+router.patch("/like", postController.likePost);
 //Comments
 router.post("/comment", postController.createComment);
 router.delete("/comment", postController.removeComment);
