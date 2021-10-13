@@ -47,19 +47,19 @@ export const login = (req, res, next) => {
 };
 
 export const currentUser = (req, res, next) => {
-  user ? res.send(req?.user) : res.status(401).send("User not logged in");
+  req.user ? res.send(req.user) : res.status(401).send("User not logged in");
 };
 
 export const getUser = async (req, res, next) => {
   const { id } = req.params;
+  let user;
   if (id && Types.ObjectId.isValid(id)) {
-    let user;
     try {
       user = await User.findOne({ _id: id });
     } catch (err) {
       next(err);
     }
-    if (user) {
+    if (user !== undefined) {
       res.send(user);
     } else res.status(404).send("User does not Exist");
   } else res.status(404).send("No ID");

@@ -56,5 +56,17 @@ export const likePost = async (id: string, postId: string) => {
   let request;
   try {
     request = await axios.patch(`${config.API_URL}/like`);
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const checkUser = async () => {
+  let request;
+  try {
+    request = await axios.get(`${config.API_URL}/auth`);
+    return request.data;
+  } catch (error) {
+    throw error;
+  }
 };

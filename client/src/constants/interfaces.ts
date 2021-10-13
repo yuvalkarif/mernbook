@@ -34,3 +34,7 @@ export interface Comment {
   creator: string;
   date: Date;
 }
+export interface Auth {
+  isAuth?: boolean;
+  user?: User;
+}

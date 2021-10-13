@@ -9,15 +9,21 @@ export const PostContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+  time {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
   span {
     display: flex;
     align-items: center;
+
     h4 {
       &:hover {
         text-decoration: underline;
         max-width: fit-content;
       }
     }
+
     div {
       display: flex;
       flex-direction: column;
@@ -65,10 +71,10 @@ export const Actions = styled.div`
 export const Comments = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 0;
+  padding-top: 0.5em;
 `;
 export const CommentWrapper = styled.div`
-  margin-block: 0.5em;
+  margin-top: 0.5em;
   time {
     margin-left: 3rem;
     font-weight: 400;
@@ -100,6 +106,9 @@ const bigIcon = css`
   max-height: 1.5rem;
 `;
 export const BigLikeIcon = styled(Like)`
+  ${bigIcon}
+`;
+export const BigCommentIcon = styled(Comment)`
   ${bigIcon}
 `;
 

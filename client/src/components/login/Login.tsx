@@ -4,9 +4,11 @@ import { FormError } from "../styled/styledTheme";
 import { login } from "../../helpers/api";
 import { useError } from "../../hooks/useError";
 import { Account } from "../../constants/interfaces";
+import { useHistory } from "react-router";
 
-export const Login: React.FC = () => {
+export const Login = () => {
   const [error, checkError] = useError();
+  const history = useHistory();
   const [account, setAccount] = useState<Account>({
     username: "",
     password: "",
@@ -14,10 +16,9 @@ export const Login: React.FC = () => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (account) {
-      let response;
       try {
-        response = await login(account);
-        console.log(response);
+        await login(account);
+        history.push("/");
       } catch (e: unknown) {
         checkError(e);
       }

@@ -11,6 +11,7 @@ import {
   ActionButton,
   BigLikeIcon,
   Comments,
+  BigCommentIcon,
 } from "./Post.styles";
 import Moment from "react-moment";
 import "moment-timezone";
@@ -57,7 +58,7 @@ export const Post = ({ postId }: { postId: string }) => {
                 Like
               </ActionButton>
               <ActionButton>
-                <BigLikeIcon />
+                <BigCommentIcon />
                 Comment
               </ActionButton>
             </div>

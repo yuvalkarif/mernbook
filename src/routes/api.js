@@ -6,7 +6,7 @@ let router = Router();
 //User
 router.post("/signup", userController.signup); // (username,password,displayname)
 router.post("/login", userController.login); // (username,password)
-router.get("/current-user", userController.currentUser); // to be logged in ()
+router.get("/auth", userController.currentUser); // to be logged in ()
 router.get("/user/:id", userController.getUser); // (id)
 router.patch("/user", userController.updateUser); // (id, picture?, summary?, work?, education?, birthday?)
 router.patch("/follow", userController.followUser); // (id,userId)

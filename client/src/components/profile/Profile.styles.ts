@@ -101,18 +101,23 @@ export const WorkIcon = styled(Work)`
 export const ProfileBody = styled.div`
   display: flex;
   margin-top: 1rem;
+  flex-direction: column;
   & > :nth-child(1) {
-    width: 100%;
-    max-width: min(40.5rem, 35%);
-    height: fit-content;
+    margin-bottom: 1rem;
   }
-  & > :nth-child(2) {
-    display: flex;
-    flex-direction: column;
-    margin-left: 1rem;
-    max-width: min(40.5rem, 65%);
-    width: 100%;
-    /* height: 100vh;
-    overflow-y: scroll; */
+  @media (min-width: 768px) {
+    flex-direction: row;
+    & > :nth-child(1) {
+      width: 100%;
+      max-width: min(40.5rem, 35%);
+      height: fit-content;
+    }
+    & > :nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      margin-left: 1rem;
+      max-width: min(40.5rem, 65%);
+      width: 100%;
+    }
   }
 `;
