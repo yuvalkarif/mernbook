@@ -6,7 +6,11 @@ import { useError } from "../../hooks/useError";
 import { Account } from "../../constants/interfaces";
 import { useHistory } from "react-router";
 
-export const Login = () => {
+export const Login = ({
+  checkForUser,
+}: {
+  checkForUser: () => Promise<void>;
+}) => {
   const [error, checkError] = useError();
   const history = useHistory();
   const [account, setAccount] = useState<Account>({
@@ -17,8 +21,12 @@ export const Login = () => {
     e.preventDefault();
     if (account) {
       try {
-        await login(account);
-        history.push("/");
+        const checkLogin = await login(account);
+        if (checkLogin) {
+          console.log("Redirecting");
+          await checkForUser();
+          history.push("/");
+        }
       } catch (e: unknown) {
         checkError(e);
       }

@@ -14,10 +14,12 @@ const { Signup } = lazily(() => import("./components/signup/Signup"));
 const { Profile } = lazily(() => import("./components/profile/Profile"));
 
 function App() {
-  const [user, checkForUser] = useAuth();
+  const [user, checkForUser, setAuth] = useAuth();
   useEffect(() => {
-    checkForUser();
-  }, []);
+    if (!user) {
+      checkForUser();
+    }
+  }, [user]);
 
   return (
     <>
@@ -29,7 +31,7 @@ function App() {
                 <Profile />
               </ProtectedRoute>
               <Route path="/login" exact>
-                <Login />
+                <Login checkForUser={checkForUser} />
               </Route>
               <Route path="/signup" exact>
                 <Signup />

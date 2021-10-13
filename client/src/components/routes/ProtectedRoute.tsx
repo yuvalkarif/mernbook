@@ -13,9 +13,11 @@ const ProtectedRoute = ({ children, ...rest }: prProps) => {
     <Route
       {...rest}
       render={({ location }) => {
-        if (user?.isAuth) {
+        if (user.isAuth === true) {
+          console.log("Routed Successfully");
           return children;
-        } else if (!user?.isAuth) {
+        } else if (user.isAuth === false) {
+          console.log("Routed Failed");
           return (
             <Redirect to={{ pathname: "/login", state: { from: location } }} />
           );
