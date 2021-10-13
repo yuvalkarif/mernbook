@@ -6,10 +6,9 @@ import { Comment as SolidComment } from "@styled-icons/boxicons-solid";
 import { Like as SolidLike } from "@styled-icons/boxicons-solid";
 
 export const PostContainer = styled(Container)`
-  max-width: 40.5rem;
   display: flex;
   flex-direction: column;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   span {
     display: flex;
     align-items: center;
@@ -135,9 +134,17 @@ export const SmallLikeIcon = styled(SolidLike)`
   fill: ${({ theme }) => theme.accentBtnText};
   border-radius: 100%;
   padding: 0.2em;
-  margin-right: 0.5em;
+  margin-right: 0.5ch;
 `;
 export const SmallCommentIcon = styled(SolidComment)`
   ${smallIcon}
-  margin-left: 0.5em;
+  margin-left: 0.5ch;
+`;
+
+export const ShowButton = styled.span`
+  font-weight: 600;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;

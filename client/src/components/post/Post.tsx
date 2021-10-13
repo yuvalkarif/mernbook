@@ -47,7 +47,7 @@ export const Post = ({ postId }: { postId: string }) => {
                 {post?.likes?.length}
               </span>
               <span>
-                {post?.likes?.length}
+                {post?.comments?.length}
                 <SmallCommentIcon />
               </span>
             </div>

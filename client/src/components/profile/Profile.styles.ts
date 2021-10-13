@@ -64,6 +64,7 @@ export const BarContainer = styled.div`
 export const AboutContainer = styled(Container)`
   display: flex;
   flex-direction: column;
+
   span {
     display: flex;
     align-items: bottom;
@@ -95,4 +96,23 @@ export const BirthdayIcon = styled(BirthdayCake)`
 `;
 export const WorkIcon = styled(Work)`
   ${miniIcon}
+`;
+
+export const ProfileBody = styled.div`
+  display: flex;
+  margin-top: 1rem;
+  & > :nth-child(1) {
+    width: 100%;
+    max-width: min(40.5rem, 35%);
+    height: fit-content;
+  }
+  & > :nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    max-width: min(40.5rem, 65%);
+    width: 100%;
+    /* height: 100vh;
+    overflow-y: scroll; */
+  }
 `;

@@ -1,5 +1,5 @@
 import { Comment } from "../../constants/interfaces";
-import { Comments } from "./Post.styles";
+import { Comments, ShowButton } from "./Post.styles";
 import { PostComment } from "./PostComment";
 import { useState } from "react";
 export const PostComments = ({
@@ -10,6 +10,9 @@ export const PostComments = ({
   const [showAll, setShowAll] = useState<Boolean>(false);
   return (
     <Comments>
+      {comments && showAll && (
+        <ShowButton onClick={() => setShowAll(false)}>View less</ShowButton>
+      )}
       {comments &&
         showAll &&
         comments.map((comment, i) => (
@@ -17,9 +20,9 @@ export const PostComments = ({
         ))}
       {!showAll && comments && comments?.length > 1 ? (
         <>
-          <p onClick={() => setShowAll(true)}>
+          <ShowButton onClick={() => setShowAll(true)}>
             View {comments?.length - 1} previous comments{" "}
-          </p>
+          </ShowButton>
           <PostComment comment={comments[0]} />
         </>
       ) : null}

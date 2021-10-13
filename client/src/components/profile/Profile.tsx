@@ -5,6 +5,7 @@ import { useFetchUser } from "../../hooks/useFetchUser";
 import { useTitle } from "../../hooks/useTitle";
 import { Wrapper } from "../styled/styledTheme";
 import { Feed } from "../feed/Feed";
+import { ProfileBody } from "./Profile.styles";
 
 export const Profile: React.FC = () => {
   const id = "615ef566e9be20f1898e44a6";
@@ -23,8 +24,10 @@ export const Profile: React.FC = () => {
         {user && <p>User fetched</p>} */}
       <ProfileHeader user={user} />
       <Wrapper>
-        <ProfileAbout about={user?.about} />
-        <Feed posts={user?.posts} />
+        <ProfileBody className="profile-body">
+          <ProfileAbout about={user?.about} />
+          <Feed posts={user?.posts} />
+        </ProfileBody>
       </Wrapper>
 
       {/* </Wrapper> */}
