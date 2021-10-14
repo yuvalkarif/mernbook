@@ -17,20 +17,30 @@ import Moment from "react-moment";
 import "moment-timezone";
 import { PostComment } from "./PostComment";
 import { PostComments } from "./PostComments";
+import { useLike } from "../../hooks/useLike";
 export const Post = ({ postId }: { postId: string }) => {
   const [error, post, setFetchPost] = useFetchPost();
   const [userError, user, setFetchUser] = useFetchUser();
+  const [isLiked, checkLike, toggleLike] = useLike();
   useEffect(() => {
     if (postId && !post) {
       setFetchPost(postId);
     }
-    if (post) {
+    if (post && !user) {
+      console.log("fetchuser,checklike");
       setFetchUser(post.creator);
+      checkLike(post?.likes);
     }
-  }, [postId, post]);
+    console.log(post?.likes.length);
+  }, [postId, post, user, setFetchPost, setFetchUser, checkLike]);
+
+  const handleLike = () => {
+    toggleLike(postId, setFetchPost);
+  };
   return (
     <>
       <PostContainer>
+        {isLiked ? <p>"LIKED"</p> : <p>"NOT LIKED"</p>}
         <span>
           <MediumImage src={user?.picture} />
           <div>
@@ -53,7 +63,7 @@ export const Post = ({ postId }: { postId: string }) => {
               </span>
             </div>
             <div>
-              <ActionButton>
+              <ActionButton onClick={handleLike}>
                 <BigLikeIcon />
                 Like
               </ActionButton>

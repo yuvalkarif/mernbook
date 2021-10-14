@@ -230,7 +230,7 @@ export const likePost = async (req, res, next) => {
       } catch (error) {
         next(error);
       }
-      res.send(post);
+      res.send(post.likes);
     } else {
       res.status(404).send(user ? "Post not Found" : "User not Found");
     }
@@ -240,7 +240,7 @@ export const likePost = async (req, res, next) => {
       .send(
         id
           ? "No Valid Post Detected"
-          : userId
+          : postId
           ? "No Valid UserID Detected"
           : "No Valid User and Post ID Detected"
       );

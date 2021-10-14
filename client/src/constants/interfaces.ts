@@ -5,6 +5,7 @@ export interface Account {
 }
 
 export interface User {
+  _id?: string;
   username: string;
   displayname: string;
   password: string;
@@ -23,7 +24,7 @@ export interface User {
 export interface Post {
   creator: string;
   body: string;
-  likes?: [User];
+  likes: [string] | [];
   comments?: [Comment];
   date: Date;
   picture?: string;
