@@ -3,10 +3,12 @@ import { Comment } from "../constants/interfaces";
 import UserContext from "../constants/context";
 import { postComment } from "../helpers/api";
 const useComment = () => {
-  const [comments, setComments] = useState<[Comment] | []>([]);
   const user = useContext(UserContext);
-
-  const writeComment = async (postId: string, body: string) => {
+  const writeComment = async (
+    postId: string,
+    body: string,
+    setComments: any
+  ) => {
     try {
       if (user.user?._id) {
         const newComments: any = await postComment(
@@ -14,13 +16,14 @@ const useComment = () => {
           postId,
           body
         );
+        console.log(newComments);
         setComments(newComments);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  return [user, comments, writeComment] as const;
+  return [user, writeComment] as const;
 };
 
 export default useComment;

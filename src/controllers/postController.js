@@ -137,15 +137,17 @@ export const createComment = async (req, res, next) => {
       next(err);
     }
     if (post) {
-      const newComment = { body, creator: user };
+      const newComment = { body, creator: user.id };
       post.comments.push(newComment);
       post.save();
       res.send(post.comments);
     } else {
-      res.send("Post not Found");
+      res.status(404).send("Post not Found");
     }
   } else {
-    res.send(id ? "No Valid PostID Detected" : "No Valid UserID Detected");
+    res
+      .status(404)
+      .send(id ? "No Valid PostID Detected" : "No Valid UserID Detected");
   }
 };
 
@@ -169,9 +171,11 @@ export const removeComment = async (req, res, next) => {
     } catch (error) {
       next(error);
     }
-    res.send("Comment removed Successfully");
+    res.send(post.comments);
   } else {
-    res.send(postId ? "No Valid PostID Detected" : "No Valid Comment Detected");
+    res
+      .status(404)
+      .send(postId ? "No Valid PostID Detected" : "No Valid Comment Detected");
   }
 };
 

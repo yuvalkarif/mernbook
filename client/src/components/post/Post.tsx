@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFetchPost } from "../../hooks/useFetchPost";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { MediumImage } from "../styled/styledTheme";
@@ -20,10 +20,12 @@ import { PostComment } from "./PostComment";
 import { PostComments } from "./PostComments";
 import { useLike } from "../../hooks/useLike";
 import { PostCommentWriter } from "./PostCommentWriter";
+import { Comment } from "../../constants/interfaces";
 export const Post = ({ postId }: { postId: string }) => {
   const [post, setFetchPost] = useFetchPost();
   const [user, setFetchUser] = useFetchUser();
   const [likes, isLiked, checkLike, toggleLike] = useLike();
+  const [comments, setComments] = useState<[Comment] | []>([]);
   useEffect(() => {
     if (postId && !post) {
       setFetchPost(postId);
@@ -31,8 +33,18 @@ export const Post = ({ postId }: { postId: string }) => {
     if (post && !user) {
       setFetchUser(post.creator);
       checkLike(post?.likes);
+      setComments(post?.comments);
     }
-  }, [postId, post, user, setFetchPost, setFetchUser, checkLike]);
+  }, [
+    postId,
+    post,
+    user,
+    setFetchPost,
+    setFetchUser,
+    checkLike,
+    comments,
+    setComments,
+  ]);
 
   const handleLike = () => {
     toggleLike(postId);
@@ -72,8 +84,16 @@ export const Post = ({ postId }: { postId: string }) => {
               </ActionButton>
             </div>
           </Actions>
-          {post?.comments && <PostComments comments={post?.comments} />}
-          <PostCommentWriter />
+          {comments && (
+            <PostComments
+              comments={comments}
+              setComments={setComments}
+              postId={postId}
+            />
+          )}
+          {comments && (
+            <PostCommentWriter postId={postId} setComments={setComments} />
+          )}
         </div>
       </PostContainer>
     </>

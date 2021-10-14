@@ -20,7 +20,7 @@ router.get("/feed", postController.readPostsByFollowed);
 router.patch("/like", postController.likePost);
 //Comments
 router.post("/comment", postController.createComment);
-router.delete("/comment", postController.removeComment);
+router.post("/remove-comment", postController.removeComment);
 
 export default router;
 

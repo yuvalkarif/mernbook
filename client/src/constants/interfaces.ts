@@ -25,15 +25,17 @@ export interface Post {
   creator: string;
   body: string;
   likes: [string] | [];
-  comments?: [Comment];
+  comments: [Comment] | [];
   date: Date;
   picture?: string;
+  _id?: string;
 }
 
 export interface Comment {
   body: string;
   creator: string;
   date: Date;
+  _id?: string;
 }
 export interface Auth {
   isAuth?: boolean;

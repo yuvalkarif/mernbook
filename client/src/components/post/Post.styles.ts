@@ -4,6 +4,7 @@ import { Like } from "@styled-icons/boxicons-regular";
 import { Comment } from "@styled-icons/boxicons-regular";
 import { Comment as SolidComment } from "@styled-icons/boxicons-solid";
 import { Like as SolidLike } from "@styled-icons/boxicons-solid";
+import { Send } from "@styled-icons/material-rounded";
 
 export const PostContainer = styled(Container)`
   display: flex;
@@ -95,26 +96,6 @@ export const CommentWrapper = styled.div`
     }
   }
 `;
-const smallIcon = css`
-  fill: ${({ theme }) => theme.btnTxt};
-  max-width: 1rem;
-  max-height: 1rem;
-`;
-const bigIcon = css`
-  fill: ${({ theme }) => theme.mainTxt};
-  max-width: 1.5rem;
-  max-height: 1.5rem;
-`;
-export const BigLikeIcon = styled(Like)`
-  ${bigIcon}
-`;
-export const BigLikeIconClicked = styled(SolidLike)`
-  ${bigIcon}
-  fill: ${({ theme }) => theme.accentBtnBg};
-`;
-export const BigCommentIcon = styled(Comment)`
-  ${bigIcon}
-`;
 
 export const ActionButton = styled.button.attrs(
   (props: { isLiked: Boolean }) => props
@@ -147,6 +128,57 @@ export const CommentPic = styled.img`
   border-radius: 100%;
 `;
 
+export const ShowButton = styled.span`
+  font-weight: 600;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+`;
+
+export const CommentWriter = styled.form`
+  display: flex;
+  margin-top: 0.25rem;
+  position: relative;
+  textarea {
+    line-height: inherit;
+    max-width: 100%;
+    width: 100%;
+    resize: none;
+    box-sizing: border-box;
+    border-radius: 1rem;
+    border: none;
+    margin-left: 0.5em;
+    padding: 0.5rem 0.75rem;
+    background: ${({ theme }) => theme.btnBg};
+    color: ${({ theme }) => theme.btnText};
+    :focus {
+      outline: none;
+    }
+  }
+`;
+
+//-------------------------------------------ICONS---------------------------------------------//
+const smallIcon = css`
+  fill: ${({ theme }) => theme.btnTxt};
+  max-width: 1rem;
+  max-height: 1rem;
+`;
+const bigIcon = css`
+  fill: ${({ theme }) => theme.mainTxt};
+  max-width: 1.5rem;
+  max-height: 1.5rem;
+`;
+export const BigLikeIcon = styled(Like)`
+  ${bigIcon}
+`;
+export const BigLikeIconClicked = styled(SolidLike)`
+  ${bigIcon}
+  fill: ${({ theme }) => theme.accentBtnBg};
+`;
+export const BigCommentIcon = styled(Comment)`
+  ${bigIcon}
+`;
 export const SmallLikeIcon = styled(SolidLike)`
   ${smallIcon}
   background: ${({ theme }) => theme.accentBtnBg};
@@ -160,28 +192,12 @@ export const SmallCommentIcon = styled(SolidComment)`
   margin-left: 0.5ch;
 `;
 
-export const ShowButton = styled.span`
-  font-weight: 600;
+export const SendIcon = styled(Send)`
+  position: absolute;
+  max-width: 1.5rem;
+  right: 0.5rem;
+  top: 0.5em;
   &:hover {
-    text-decoration: underline;
     cursor: pointer;
-  }
-`;
-
-export const CommentWriter = styled.form`
-  display: flex;
-  margin-top: 0.25rem;
-  textarea {
-    line-height: inherit;
-    max-width: 100%;
-    width: 100%;
-    resize: none;
-    box-sizing: border-box;
-    border-radius: 1rem;
-    border: none;
-    margin-left: 0.5em;
-    padding: 0.25rem 0.75rem;
-    background: ${({ theme }) => theme.btnBg};
-    color: ${({ theme }) => theme.btnText};
   }
 `;

@@ -74,9 +74,28 @@ export const checkUser = async () => {
 export const postComment = async (id: string, postId: string, body: string) => {
   let request;
   try {
-    request = await axios.post(`${config.API_URL}/like`, { id, postId, body });
+    request = await axios.post(`${config.API_URL}/comment`, {
+      id,
+      postId,
+      body,
+    });
   } catch (error) {
     throw error;
   }
+  console.log(request.data);
+  return request.data;
+};
+
+export const removeComment = async (commentId: string, postId: string) => {
+  let request;
+  try {
+    request = await axios.post(`${config.API_URL}/remove-comment`, {
+      commentId,
+      postId,
+    });
+  } catch (error) {
+    throw error;
+  }
+  console.log(request.data);
   return request.data;
 };
