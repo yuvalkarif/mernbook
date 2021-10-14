@@ -17,6 +17,9 @@ export const Login = ({
     username: "",
     password: "",
   });
+  const handleGuest = () => {
+    setAccount({ username: "yuvalkarif", password: "asdf" });
+  };
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (account) {
@@ -50,6 +53,7 @@ export const Login = ({
                 onChange={(e) =>
                   setAccount({ ...account, username: e.target.value })
                 }
+                value={account.username}
               ></input>
               <input
                 type="password"
@@ -58,9 +62,10 @@ export const Login = ({
                 onChange={(e) =>
                   setAccount({ ...account, password: e.target.value })
                 }
+                value={account.password}
               ></input>
               <styled.AccentButton type="submit">Log In</styled.AccentButton>
-              <styled.OutlineButton type="submit">
+              <styled.OutlineButton type="button" onClick={handleGuest}>
                 Log In as Guest
               </styled.OutlineButton>
             </form>

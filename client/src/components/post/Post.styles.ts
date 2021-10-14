@@ -167,3 +167,21 @@ export const ShowButton = styled.span`
     cursor: pointer;
   }
 `;
+
+export const CommentWriter = styled.form`
+  display: flex;
+  margin-top: 0.25rem;
+  textarea {
+    line-height: inherit;
+    max-width: 100%;
+    width: 100%;
+    resize: none;
+    box-sizing: border-box;
+    border-radius: 1rem;
+    border: none;
+    margin-left: 0.5em;
+    padding: 0.25rem 0.75rem;
+    background: ${({ theme }) => theme.btnBg};
+    color: ${({ theme }) => theme.btnText};
+  }
+`;

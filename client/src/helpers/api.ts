@@ -71,3 +71,12 @@ export const checkUser = async () => {
     throw error;
   }
 };
+export const postComment = async (id: string, postId: string, body: string) => {
+  let request;
+  try {
+    request = await axios.post(`${config.API_URL}/like`, { id, postId, body });
+  } catch (error) {
+    throw error;
+  }
+  return request.data;
+};

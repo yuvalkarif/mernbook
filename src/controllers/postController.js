@@ -140,7 +140,7 @@ export const createComment = async (req, res, next) => {
       const newComment = { body, creator: user };
       post.comments.push(newComment);
       post.save();
-      res.send("Comment added Successfully");
+      res.send(post.comments);
     } else {
       res.send("Post not Found");
     }

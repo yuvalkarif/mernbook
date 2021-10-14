@@ -19,6 +19,7 @@ import "moment-timezone";
 import { PostComment } from "./PostComment";
 import { PostComments } from "./PostComments";
 import { useLike } from "../../hooks/useLike";
+import { PostCommentWriter } from "./PostCommentWriter";
 export const Post = ({ postId }: { postId: string }) => {
   const [post, setFetchPost] = useFetchPost();
   const [user, setFetchUser] = useFetchUser();
@@ -72,6 +73,7 @@ export const Post = ({ postId }: { postId: string }) => {
             </div>
           </Actions>
           {post?.comments && <PostComments comments={post?.comments} />}
+          <PostCommentWriter />
         </div>
       </PostContainer>
     </>
