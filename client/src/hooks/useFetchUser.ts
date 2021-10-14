@@ -17,5 +17,5 @@ export const useFetchUser = () => {
     }
   };
 
-  return [error, user, setFetchUser] as const;
+  return [user, setFetchUser, error] as const;
 };

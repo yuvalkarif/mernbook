@@ -12,6 +12,7 @@ import {
   BigLikeIcon,
   Comments,
   BigCommentIcon,
+  BigLikeIconClicked,
 } from "./Post.styles";
 import Moment from "react-moment";
 import "moment-timezone";
@@ -19,28 +20,25 @@ import { PostComment } from "./PostComment";
 import { PostComments } from "./PostComments";
 import { useLike } from "../../hooks/useLike";
 export const Post = ({ postId }: { postId: string }) => {
-  const [error, post, setFetchPost] = useFetchPost();
-  const [userError, user, setFetchUser] = useFetchUser();
-  const [isLiked, checkLike, toggleLike] = useLike();
+  const [post, setFetchPost] = useFetchPost();
+  const [user, setFetchUser] = useFetchUser();
+  const [likes, isLiked, checkLike, toggleLike] = useLike();
   useEffect(() => {
     if (postId && !post) {
       setFetchPost(postId);
     }
     if (post && !user) {
-      console.log("fetchuser,checklike");
       setFetchUser(post.creator);
       checkLike(post?.likes);
     }
-    console.log(post?.likes.length);
   }, [postId, post, user, setFetchPost, setFetchUser, checkLike]);
 
   const handleLike = () => {
-    toggleLike(postId, setFetchPost);
+    toggleLike(postId);
   };
   return (
     <>
       <PostContainer>
-        {isLiked ? <p>"LIKED"</p> : <p>"NOT LIKED"</p>}
         <span>
           <MediumImage src={user?.picture} />
           <div>
@@ -55,7 +53,7 @@ export const Post = ({ postId }: { postId: string }) => {
             <div>
               <span>
                 <SmallLikeIcon />
-                {post?.likes?.length}
+                {likes && likes.length}
               </span>
               <span>
                 {post?.comments?.length}
@@ -63,8 +61,8 @@ export const Post = ({ postId }: { postId: string }) => {
               </span>
             </div>
             <div>
-              <ActionButton onClick={handleLike}>
-                <BigLikeIcon />
+              <ActionButton onClick={handleLike} isLiked={isLiked}>
+                {isLiked ? <BigLikeIconClicked /> : <BigLikeIcon />}
                 Like
               </ActionButton>
               <ActionButton>

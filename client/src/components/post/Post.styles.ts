@@ -108,15 +108,25 @@ const bigIcon = css`
 export const BigLikeIcon = styled(Like)`
   ${bigIcon}
 `;
+export const BigLikeIconClicked = styled(SolidLike)`
+  ${bigIcon}
+  fill: ${({ theme }) => theme.accentBtnBg};
+`;
 export const BigCommentIcon = styled(Comment)`
   ${bigIcon}
 `;
 
-export const ActionButton = styled.button`
+export const ActionButton = styled.button.attrs(
+  (props: { isLiked: Boolean }) => props
+)`
   width: 100%;
   border: none;
   background-color: ${({ theme }) => theme.containerBg};
-  color: ${({ theme }) => theme.mainText};
+  color: ${(props) =>
+    props.isLiked
+      ? ({ theme }) => theme.accentBtnBg
+      : ({ theme }) => theme.mainText};
+
   font-weight: 600;
   display: flex;
   justify-content: center;

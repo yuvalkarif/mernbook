@@ -5,7 +5,7 @@ import { CommentPic, CommentWrapper } from "./Post.styles";
 import Moment from "react-moment";
 import "moment-timezone";
 export const PostComment = ({ comment }: { comment: Comment }) => {
-  const [error, user, setFetchUser] = useFetchUser();
+  const [user, setFetchUser] = useFetchUser();
   useEffect(() => {
     if (comment.creator) {
       setFetchUser(comment.creator);
