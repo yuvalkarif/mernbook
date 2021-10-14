@@ -5,6 +5,7 @@ import { Comment } from "@styled-icons/boxicons-regular";
 import { Comment as SolidComment } from "@styled-icons/boxicons-solid";
 import { Like as SolidLike } from "@styled-icons/boxicons-solid";
 import { Send } from "@styled-icons/material-rounded";
+import { DeleteOutline } from "@styled-icons/material-rounded";
 
 export const PostContainer = styled(Container)`
   display: flex;
@@ -75,7 +76,9 @@ export const Comments = styled.div`
   padding-top: 0.5em;
 `;
 export const CommentWrapper = styled.div`
+  position: relative;
   margin-top: 0.5em;
+
   time {
     margin-left: 3rem;
     font-weight: 400;
@@ -83,12 +86,16 @@ export const CommentWrapper = styled.div`
   }
   & > div {
     display: flex;
-
+    //Post body container
     & > div {
       background-color: ${({ theme }) => theme.btnBg};
       padding: 0.25em 0.75em;
       border-radius: 1rem;
       margin-left: 0.5em;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      min-width: 0;
+
       p,
       h5 {
         margin: 0;
@@ -195,6 +202,15 @@ export const SmallCommentIcon = styled(SolidComment)`
 export const SendIcon = styled(Send)`
   position: absolute;
   max-width: 1.5rem;
+  right: 0.5rem;
+  top: 0.5em;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const DeleteIcon = styled(DeleteOutline)`
+  max-width: 1.5rem;
+  margin-left: 0.5rem;
   right: 0.5rem;
   top: 0.5em;
   &:hover {

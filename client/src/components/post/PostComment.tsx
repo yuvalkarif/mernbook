@@ -1,11 +1,12 @@
 import { Comment, User as UserType } from "../../constants/interfaces";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { useEffect, useContext } from "react";
-import { CommentPic, CommentWrapper } from "./Post.styles";
+import { CommentPic, CommentWrapper, DeleteIcon } from "./Post.styles";
 import Moment from "react-moment";
 import "moment-timezone";
 import UserContext from "../../constants/context";
 import { removeComment } from "../../helpers/api";
+import Skeleton from "react-loading-skeleton";
 
 export const PostComment = ({
   comment,
@@ -36,16 +37,22 @@ export const PostComment = ({
     }
   };
   return (
-    <CommentWrapper>
-      {user?._id === comment.creator && <p onClick={handleRemove}>Author</p>}
-      <div>
-        {postUser?.picture && <CommentPic src={postUser?.picture} />}
-        <div>
-          {postUser?.displayname && <h5>{postUser?.displayname}</h5>}
-          {comment.body && <p>{comment.body}</p>}
-        </div>
-      </div>
-      {comment?.date && <Moment fromNow>{comment?.date}</Moment>}
-    </CommentWrapper>
+    <>
+      {postUser ? (
+        <CommentWrapper>
+          <div>
+            {postUser?.picture && <CommentPic src={postUser?.picture} />}
+            <div>
+              {postUser?.displayname && <h5>{postUser?.displayname}</h5>}
+              {comment.body && <p>{comment.body}</p>}
+            </div>
+            {user?._id === comment.creator && (
+              <DeleteIcon onClick={handleRemove} />
+            )}
+          </div>
+          {comment?.date && <Moment fromNow>{comment?.date}</Moment>}
+        </CommentWrapper>
+      ) : null}
+    </>
   );
 };
