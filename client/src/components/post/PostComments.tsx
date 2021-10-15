@@ -29,11 +29,13 @@ export const PostComments = ({
             postId={postId}
           ></PostComment>
         ))}
-      {!showAll && comments && comments?.length > 1 ? (
+      {!showAll && comments && comments?.length > 0 ? (
         <>
-          <ShowButton onClick={() => setShowAll(true)}>
-            View {comments?.length - 1} previous comments{" "}
-          </ShowButton>
+          {comments?.length > 1 && (
+            <ShowButton onClick={() => setShowAll(true)}>
+              View {comments?.length - 1} previous comments{" "}
+            </ShowButton>
+          )}
           {comments[0] && (
             <PostComment
               comment={comments[comments.length - 1]}

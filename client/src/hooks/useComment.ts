@@ -16,7 +16,7 @@ const useComment = () => {
           postId,
           body
         );
-        console.log(newComments);
+
         setComments(newComments);
       }
     } catch (error) {

@@ -1,5 +1,12 @@
 import styled, { css } from "styled-components";
-import { Container } from "../styled/styledTheme";
+import {
+  Container,
+  TextBox,
+  WideButton,
+  bigIcon,
+  smallIcon,
+} from "../styled/styledTheme";
+//---------------------------Icon Imports---------------------------//
 import { Like } from "@styled-icons/boxicons-regular";
 import { Comment } from "@styled-icons/boxicons-regular";
 import { Comment as SolidComment } from "@styled-icons/boxicons-solid";
@@ -105,29 +112,13 @@ export const CommentWrapper = styled.div`
 `;
 
 export const ActionButton = styled.button.attrs(
-  (props: { isLiked: Boolean }) => props
+  (props: { isLiked?: Boolean }) => props
 )`
-  width: 100%;
-  border: none;
-  background-color: ${({ theme }) => theme.containerBg};
+  ${WideButton}
   color: ${(props) =>
     props.isLiked
       ? ({ theme }) => theme.accentBtnBg
       : ({ theme }) => theme.mainText};
-
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.3rem 0;
-  border-radius: 0.5em;
-  & :first-child {
-    margin-right: 0.5ch;
-  }
-  &:hover {
-    filter: brightness(110%);
-    cursor: pointer;
-  }
 `;
 export const CommentPic = styled.img`
   max-width: 2.15rem;
@@ -148,34 +139,12 @@ export const CommentWriter = styled.form`
   margin-top: 0.25rem;
   position: relative;
   textarea {
-    line-height: inherit;
-    max-width: 100%;
-    width: 100%;
-    resize: none;
-    box-sizing: border-box;
-    border-radius: 1rem;
-    border: none;
-    margin-left: 0.5em;
-    padding: 0.5rem 0.75rem;
-    background: ${({ theme }) => theme.btnBg};
-    color: ${({ theme }) => theme.btnText};
-    :focus {
-      outline: none;
-    }
+    ${TextBox}
   }
 `;
 
 //-------------------------------------------ICONS---------------------------------------------//
-const smallIcon = css`
-  fill: ${({ theme }) => theme.btnTxt};
-  max-width: 1rem;
-  max-height: 1rem;
-`;
-const bigIcon = css`
-  fill: ${({ theme }) => theme.mainTxt};
-  max-width: 1.5rem;
-  max-height: 1.5rem;
-`;
+
 export const BigLikeIcon = styled(Like)`
   ${bigIcon}
 `;

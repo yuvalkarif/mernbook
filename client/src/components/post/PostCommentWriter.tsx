@@ -12,6 +12,12 @@ export const PostCommentWriter = ({
 }) => {
   const [user, writeComment] = useComment();
   const [body, setBody] = useState<string>("");
+  const handleClick = () => {
+    if (postId && body) {
+      writeComment(postId, body, setComments);
+      setBody("");
+    }
+  };
   return (
     <>
       <CommentWriter>
@@ -21,7 +27,7 @@ export const PostCommentWriter = ({
           onChange={(e) => setBody(e.target.value)}
           value={body}
         />
-        <SendIcon onClick={() => writeComment(postId, body, setComments)} />
+        <SendIcon onClick={handleClick} />
       </CommentWriter>
     </>
   );

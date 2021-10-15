@@ -8,7 +8,6 @@ export const useFetchUser = () => {
   const setFetchUser = async (id: string) => {
     try {
       let fetchedUser = await getUser(id);
-      console.log(fetchedUser);
       if (fetchedUser) {
         setUser(fetchedUser);
       }

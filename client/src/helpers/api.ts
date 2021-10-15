@@ -82,7 +82,7 @@ export const postComment = async (id: string, postId: string, body: string) => {
   } catch (error) {
     throw error;
   }
-  console.log(request.data);
+
   return request.data;
 };
 
@@ -96,6 +96,6 @@ export const removeComment = async (commentId: string, postId: string) => {
   } catch (error) {
     throw error;
   }
-  console.log(request.data);
+
   return request.data;
 };
