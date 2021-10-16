@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState } from "react";
 import {
   WriterContainer,
   WriterProfile,
@@ -12,7 +12,8 @@ import {
 } from "./PostWriter.styles";
 import UserContext from "../../constants/context";
 import TextareaAutosize from "react-textarea-autosize";
-import { FormatListBulletedDimensions } from "@styled-icons/material-rounded/FormatListBulleted";
+import { createPost } from "../../helpers/api";
+
 interface PostWriterType {
   body: string;
   picture?: string;
@@ -22,7 +23,11 @@ interface Image {
   isValid: boolean;
   isChecking: boolean;
 }
-export const PostWriter = () => {
+export const PostWriter = ({
+  setPostsIds,
+}: {
+  setPostsIds: React.Dispatch<React.SetStateAction<string[] | undefined>>;
+}) => {
   const { user } = useContext(UserContext);
   const [showLink, setShowLink] = useState<Boolean>(false);
   const [post, setPost] = useState<PostWriterType>({
@@ -35,17 +40,46 @@ export const PostWriter = () => {
     isValid: false,
     isChecking: false,
   });
-  const imageCheck = () => {
+  const [expanded, setExpanded] = useState<Boolean>(false);
+  const imageCheck = (e: React.SyntheticEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
     setImage({ ...image, isChecking: true });
   };
 
+  const submitPost = async () => {
+    const { body, picture } = post;
+    if (body && user?._id) {
+      let post: any;
+      try {
+        post = await createPost(user?._id, body, image.src);
+        setPostsIds(post);
+        setExpanded(false);
+        setShowLink(false);
+        setPost({
+          body: "",
+          picture: "",
+        });
+        setImage({
+          src: "",
+          isValid: false,
+          isChecking: false,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
-    <WriterContainer>
+    <WriterContainer onClick={() => setExpanded(true)} expanded={expanded}>
       <TopContainer>
         <div>
           <WriterProfile src={user?.picture} />
           <TextareaAutosize
-            placeholder="Whats on your mind?"
+            placeholder={`Whats on your mind, ${
+              user?.displayname.split(" ")[0]
+            }?`}
             onChange={(e) => setPost({ ...post, body: e.target.value })}
             value={post.body}
           />
@@ -70,7 +104,7 @@ export const PostWriter = () => {
             <PhotoIcon />
             <span>Add a photo</span>
           </ActionButton>
-          {showLink && (
+          {expanded && (
             <LinkContainer>
               <LinkInput
                 placeholder=".png, .jpg or .webp links"
@@ -82,7 +116,7 @@ export const PostWriter = () => {
           )}
         </div>
 
-        <PostButton onClick={() => console.log(post)}>Post</PostButton>
+        <PostButton onClick={submitPost}>Post</PostButton>
       </div>
     </WriterContainer>
   );

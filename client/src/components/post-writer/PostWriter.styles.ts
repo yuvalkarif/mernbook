@@ -10,12 +10,22 @@ import {
 } from "../styled/styledTheme";
 import { Photo, Upload } from "@styled-icons/material-rounded";
 
-export const WriterContainer = styled(Container)`
+export const WriterContainer = styled(Container).attrs(
+  (props: { expanded?: Boolean }) => props
+)`
+  textarea {
+    min-height: ${(props) => (props.expanded ? "6rem" : "0")};
+  }
   margin-bottom: 1rem;
   & > div:last-of-type {
     margin-top: 0.5em;
     display: flex;
+    flex-direction: ${(props) => (props.expanded ? "column" : "row")};
     justify-content: space-between;
+
+    & > :last-child {
+      margin-top: ${(props) => (props.expanded ? "1rem" : "0")};
+    }
 
     div {
       display: flex;
@@ -24,11 +34,18 @@ export const WriterContainer = styled(Container)`
       width: 100%;
     }
   }
+  /* &:focus,
   &:focus-within {
     textarea {
       min-height: 6em;
     }
-  }
+    & > div:last-of-type {
+      flex-direction: column;
+      & > :last-child {
+        margin-top: 1rem;
+      }
+    }
+  } */
 `;
 
 export const TopContainer = styled.div`
@@ -43,10 +60,6 @@ export const TopContainer = styled.div`
       font-weight: 500;
       font-size: 1.1rem;
       transition: min-height 250ms ease-out;
-      min-height: 0;
-      &:focus-within {
-        min-height: 6em;
-      }
     }
   }
   & > img {
@@ -80,7 +93,7 @@ export const PhotoIcon = styled(Photo)`
 `;
 export const PostButton = styled.button`
   ${WideButton}
-  max-width: fit-content;
+  max-width: 100%;
   padding: 0.75rem 1rem;
   background-color: ${({ theme }) => theme.accentBtnBg};
   color: ${({ theme }) => theme.accentBtnText};

@@ -99,3 +99,18 @@ export const removeComment = async (commentId: string, postId: string) => {
 
   return request.data;
 };
+
+export const createPost = async (id: string, body: string, picture: string) => {
+  let request;
+  try {
+    request = await axios.post(`${config.API_URL}/post`, {
+      id,
+      body,
+      picture,
+    });
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};

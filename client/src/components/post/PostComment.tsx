@@ -14,7 +14,7 @@ export const PostComment = ({
   postId,
 }: {
   comment: Comment;
-  setComments: React.Dispatch<React.SetStateAction<[Comment] | []>>;
+  setComments: React.Dispatch<React.SetStateAction<Comment[] | []>>;
   postId: string;
 }) => {
   const [postUser, setFetchUser] = useFetchUser();

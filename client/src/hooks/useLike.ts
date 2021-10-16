@@ -5,12 +5,12 @@ import { likePost } from "../helpers/api";
 
 export const useLike = () => {
   const [isLiked, setIsLiked] = useState<Boolean>(false);
-  const [likes, setLikes] = useState<[string] | []>([]);
+  const [likes, setLikes] = useState<string[] | []>([]);
   const {
     user: { _id: id },
   }: any = useContext<Auth>(UserContext);
 
-  const checkLike = (likes: [string] | []) => {
+  const checkLike = (likes: string[] | []) => {
     setLikes(likes);
     likes.some((like) => like === id) ? setIsLiked(true) : setIsLiked(false);
   };

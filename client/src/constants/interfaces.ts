@@ -9,9 +9,9 @@ export interface User {
   username: string;
   displayname: string;
   password: string;
-  following?: [User];
-  followers?: [User];
-  posts?: [string];
+  following?: User[];
+  followers?: User[];
+  posts?: string[];
   picture?: string;
   isAdmin: Boolean;
   about?: {
@@ -24,8 +24,8 @@ export interface User {
 export interface Post {
   creator: string;
   body: string;
-  likes: [string] | [];
-  comments: [Comment] | [];
+  likes: string[] | [];
+  comments: Comment[] | [];
   date: Date;
   picture?: string;
   _id?: string;

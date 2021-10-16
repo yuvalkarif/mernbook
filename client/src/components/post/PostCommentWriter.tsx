@@ -7,7 +7,7 @@ export const PostCommentWriter = ({
   setComments,
   postId,
 }: {
-  setComments: React.Dispatch<React.SetStateAction<[Comment] | []>>;
+  setComments: React.Dispatch<React.SetStateAction<Comment[] | []>>;
   postId: string;
 }) => {
   const [user, writeComment] = useComment();

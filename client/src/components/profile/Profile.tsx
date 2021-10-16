@@ -35,3 +35,5 @@ export const Profile: React.FC = () => {
     </>
   );
 };
+
+// user?.posts?.reverse()

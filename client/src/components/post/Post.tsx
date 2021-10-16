@@ -25,7 +25,7 @@ export const Post = ({ postId }: { postId: string }) => {
   const [post, setFetchPost] = useFetchPost();
   const [user, setFetchUser] = useFetchUser();
   const [likes, isLiked, checkLike, toggleLike] = useLike();
-  const [comments, setComments] = useState<[Comment] | []>([]);
+  const [comments, setComments] = useState<Comment[] | []>([]);
   useEffect(() => {
     if (postId && !post) {
       setFetchPost(postId);

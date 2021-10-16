@@ -8,8 +8,8 @@ export const PostComments = ({
   setComments,
   postId,
 }: {
-  comments: [Comment] | [];
-  setComments: React.Dispatch<React.SetStateAction<[Comment] | []>>;
+  comments: Comment[] | [];
+  setComments: React.Dispatch<React.SetStateAction<Comment[] | []>>;
   postId: string;
 }) => {
   const [showAll, setShowAll] = useState<Boolean>(false);

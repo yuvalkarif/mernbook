@@ -22,10 +22,10 @@ export const createPost = async (req, res, next) => {
         user.posts.push(newPost);
         await newPost.save();
         await user.save();
+        res.send(user.posts);
       } catch (error) {
         next(error);
       }
-      res.send({ newPost, user });
     } else {
       res.status(404).send("User not Found");
     }

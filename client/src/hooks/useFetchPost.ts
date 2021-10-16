@@ -7,11 +7,13 @@ export const useFetchPost = () => {
   const [error, setError] = useState<Boolean | undefined>(false);
   const setFetchPost = async (id: string) => {
     console.log("fetching new post");
+
     try {
-      let fetchedPost = await getPost(id);
+      let fetchedPost: any = await getPost(id);
 
       if (fetchedPost) {
         setPost(fetchedPost);
+        console.log(fetchedPost?.body);
       }
     } catch (error) {
       setError(true);
