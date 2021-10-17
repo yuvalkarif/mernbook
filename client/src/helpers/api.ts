@@ -114,3 +114,17 @@ export const createPost = async (id: string, body: string, picture: string) => {
 
   return request.data;
 };
+
+export const deletePost = async (id: string, postId: string) => {
+  let request;
+  try {
+    request = await axios.post(`${config.API_URL}/post/delete`, {
+      id,
+      postId,
+    });
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};

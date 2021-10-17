@@ -14,7 +14,7 @@ router.patch("/unfollow", userController.unfollowUser); // (id,userId)
 //Post
 router.post("/post", postController.createPost);
 router.patch("/post", postController.updatePost);
-router.delete("/post", postController.removePost);
+router.post("/post/delete", postController.removePost);
 router.get("/post/:postId", postController.readPost);
 router.get("/feed", postController.readPostsByFollowed);
 router.patch("/like", postController.likePost);

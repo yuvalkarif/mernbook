@@ -13,6 +13,8 @@ import {
   Comments,
   BigCommentIcon,
   BigLikeIconClicked,
+  SkeletonPostContainer,
+  BigDeleteIcon,
 } from "./Post.styles";
 import Moment from "react-moment";
 import "moment-timezone";
@@ -21,11 +23,21 @@ import { PostComments } from "./PostComments";
 import { useLike } from "../../hooks/useLike";
 import { PostCommentWriter } from "./PostCommentWriter";
 import { Comment } from "../../constants/interfaces";
-export const Post = ({ postId }: { postId: string }) => {
+import { deletePost } from "../../helpers/api";
+import { useUserContext } from "../../hooks/useUserContext";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+export const Post = ({
+  postId,
+  setPostsIds,
+}: {
+  postId: string;
+  setPostsIds: React.Dispatch<React.SetStateAction<string[] | undefined>>;
+}) => {
   const [post, setFetchPost] = useFetchPost();
   const [user, setFetchUser] = useFetchUser();
   const [likes, isLiked, checkLike, toggleLike] = useLike();
   const [comments, setComments] = useState<Comment[] | []>([]);
+  const loggedUser = useUserContext();
   useEffect(() => {
     if (postId && !post) {
       setFetchPost(postId);
@@ -49,53 +61,87 @@ export const Post = ({ postId }: { postId: string }) => {
   const handleLike = () => {
     toggleLike(postId);
   };
+  const handleDelete = async () => {
+    if (loggedUser?.user?._id) {
+      let posts: any;
+      try {
+        posts = await deletePost(loggedUser.user._id, postId);
+        setPostsIds(posts);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   return (
     <>
-      <PostContainer>
-        <span>
-          <MediumImage src={user?.picture} />
+      {user && post ? (
+        <PostContainer>
+          {post?.creator === loggedUser.user?._id && (
+            <BigDeleteIcon onClick={handleDelete}>DELETE</BigDeleteIcon>
+          )}
+          <span>
+            <MediumImage src={user?.picture} />
+            <div>
+              <h4>{user?.displayname}</h4>
+              <Moment format={"LL"}>{post?.date}</Moment>
+            </div>
+          </span>
+          <p>{post?.body}</p>
+          {post?.picture && <Image src={post?.picture} />}
           <div>
-            <h4>{user?.displayname}</h4>
-            <Moment format={"LL"}>{post?.date}</Moment>
+            <Actions>
+              <div>
+                <span>
+                  <SmallLikeIcon />
+                  {likes && likes.length}
+                </span>
+                <span>
+                  {comments.length}
+                  <SmallCommentIcon />
+                </span>
+              </div>
+              <div>
+                <ActionButton onClick={handleLike} isLiked={isLiked}>
+                  {isLiked ? <BigLikeIconClicked /> : <BigLikeIcon />}
+                  Like
+                </ActionButton>
+                <ActionButton>
+                  <BigCommentIcon />
+                  Comment
+                </ActionButton>
+              </div>
+            </Actions>
+            {comments && (
+              <PostComments
+                comments={comments}
+                setComments={setComments}
+                postId={postId}
+              />
+            )}
+            {comments && (
+              <PostCommentWriter postId={postId} setComments={setComments} />
+            )}
           </div>
-        </span>
-        <p>{post?.body}</p>
-        {post?.picture && <Image src={post.picture} />}
-        <div>
-          <Actions>
-            <div>
-              <span>
-                <SmallLikeIcon />
-                {likes && likes.length}
-              </span>
-              <span>
-                {comments.length}
-                <SmallCommentIcon />
-              </span>
+        </PostContainer>
+      ) : (
+        <SkeletonPostContainer>
+          <SkeletonTheme color="#3a3b3c" highlightColor="#b0b3b8">
+            <div className="s-title">
+              <Skeleton duration={1.5} circle={true} height={40} width={40} />
+              <div>
+                {" "}
+                <Skeleton height={10} />
+                <Skeleton height={10} />
+              </div>
             </div>
-            <div>
-              <ActionButton onClick={handleLike} isLiked={isLiked}>
-                {isLiked ? <BigLikeIconClicked /> : <BigLikeIcon />}
-                Like
-              </ActionButton>
-              <ActionButton>
-                <BigCommentIcon />
-                Comment
-              </ActionButton>
+            <div className="s-body">
+              <Skeleton height={10} />
+              <Skeleton height={10} />
+              <Skeleton height={10} />
             </div>
-          </Actions>
-          {comments && (
-            <PostComments
-              comments={comments}
-              setComments={setComments}
-              postId={postId}
-            />
-          )}
-          {comments && (
-            <PostCommentWriter postId={postId} setComments={setComments} />
-          )}
-        </div>
-      </PostContainer>
+          </SkeletonTheme>
+        </SkeletonPostContainer>
+      )}
     </>
   );
 };

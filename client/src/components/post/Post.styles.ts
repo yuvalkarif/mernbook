@@ -12,12 +12,62 @@ import { Comment } from "@styled-icons/boxicons-regular";
 import { Comment as SolidComment } from "@styled-icons/boxicons-solid";
 import { Like as SolidLike } from "@styled-icons/boxicons-solid";
 import { Send } from "@styled-icons/material-rounded";
-import { DeleteOutline } from "@styled-icons/material-rounded";
+import { DeleteOutline, Delete } from "@styled-icons/material-rounded";
 
+export const SkeletonPostContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  * span {
+    max-width: 100%;
+  }
+  .s-title {
+    display: flex;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      margin-left: 0.5rem;
+      width: 12.5rem;
+      & :first-child {
+        span {
+          width: 100%;
+        }
+      }
+      & :last-child {
+        span {
+          width: 60%;
+        }
+      }
+    }
+  }
+  .s-body {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    & :first-child {
+      span {
+        width: 100%;
+      }
+    }
+    & :nth-child(2) {
+      span {
+        width: 85%;
+      }
+    }
+    & :last-child {
+      span {
+        width: 40%;
+      }
+    }
+  }
+`;
 export const PostContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+  position: relative;
+
   time {
     font-size: 0.85rem;
     font-weight: 600;
@@ -185,4 +235,14 @@ export const DeleteIcon = styled(DeleteOutline)`
   &:hover {
     cursor: pointer;
   }
+`;
+export const BigDeleteIcon = styled(Delete)`
+  ${bigIcon}
+  position: absolute;
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.errorText};
+  }
+  right: 1rem;
+  top: 1.5rem;
 `;

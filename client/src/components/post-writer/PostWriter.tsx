@@ -86,6 +86,7 @@ export const PostWriter = ({
         </div>
         {image.isChecking && (
           <img
+            style={{ display: !image.isValid ? "none" : "block" }}
             src={image.src}
             alt=""
             onError={() =>

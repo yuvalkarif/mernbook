@@ -86,13 +86,16 @@ export const removePost = async (req, res, next) => {
     }
     if (user && post) {
       user.posts = user.posts.filter((post) => post.id != postId);
+      let newUser;
       try {
         await user.save();
         await Post.findByIdAndDelete(postId);
+        newUser = await User.findOne({ _id: id });
       } catch (error) {
         next(error);
       }
-      res.send("Post Deleted Successfully");
+
+      res.send(newUser.posts);
     } else {
       res.send(post ? "No Valid User Found" : "No Valid Post Found");
     }

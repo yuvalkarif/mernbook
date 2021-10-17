@@ -13,7 +13,6 @@ export const useFetchPost = () => {
 
       if (fetchedPost) {
         setPost(fetchedPost);
-        console.log(fetchedPost?.body);
       }
     } catch (error) {
       setError(true);

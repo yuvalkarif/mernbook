@@ -10,30 +10,23 @@ export const Feed = ({ posts }: { posts: string[] | undefined }) => {
   useEffect(() => {
     if (!postsIds) {
       setPostsIds(posts);
-    } else if (postsIds && !postsToRender) {
-      console.log(postsIds);
-      setPostsToRender([...postsIds].slice(-numOfPosts));
-    } else if (postsIds && postsToRender) {
-      setPostsToRender([...postsToRender, ...postsIds.slice(-1)]);
-      setNumOfPosts(numOfPosts + 1);
     }
   }, [posts, postsIds]);
 
-  const handleMore = () => {
-    if (postsIds && postsToRender) {
+  const handleMore = async () => {
+    if (postsIds) {
       setNumOfPosts(numOfPosts + 5);
-
-      setPostsToRender([...postsIds.slice(-numOfPosts)]);
     }
   };
   return (
     <div>
       <PostWriter setPostsIds={setPostsIds} />
       <FeedWrapper>
-        {postsToRender &&
-          postsToRender.slice().map((post, i) => {
-            console.log(`post ${i} ${post}`);
-            return <Post key={post} postId={post} />;
+        {postsIds &&
+          postsIds.slice(-numOfPosts).map((post, i) => {
+            return (
+              <Post key={post + i} postId={post} setPostsIds={setPostsIds} />
+            );
           })}
       </FeedWrapper>
       <button type="button" onClick={handleMore}>
