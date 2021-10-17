@@ -91,13 +91,22 @@ export const PhotoIcon = styled(Photo)`
     margin-right: 0 !important;
   }
 `;
-export const PostButton = styled.button`
+export const PostButton = styled.button.attrs(
+  (props: { body?: boolean }) => props
+)`
   ${WideButton}
   max-width: 100%;
   padding: 0.75rem 1rem;
   background-color: ${({ theme }) => theme.accentBtnBg};
   color: ${({ theme }) => theme.accentBtnText};
   height: 100%;
+  /* opacity: ${(props) => (props.body ? "1" : "0.2")}; */
+  background-color: ${(props) =>
+    props.body ? ({ theme }) => theme.accentBg : ({ theme }) => theme.greyedBg};
+  color: ${(props) =>
+    props.body
+      ? ({ theme }) => theme.accentBtnText
+      : ({ theme }) => theme.mainText};
 `;
 export const LinkInput = styled.input`
   ${TextBox}

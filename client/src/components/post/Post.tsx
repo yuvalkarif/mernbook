@@ -10,22 +10,22 @@ import {
   SmallLikeIcon,
   ActionButton,
   BigLikeIcon,
-  Comments,
   BigCommentIcon,
   BigLikeIconClicked,
-  SkeletonPostContainer,
   BigDeleteIcon,
 } from "./Post.styles";
 import Moment from "react-moment";
 import "moment-timezone";
-import { PostComment } from "./PostComment";
 import { PostComments } from "./PostComments";
-import { useLike } from "../../hooks/useLike";
 import { PostCommentWriter } from "./PostCommentWriter";
 import { Comment } from "../../constants/interfaces";
 import { deletePost } from "../../helpers/api";
+import { PostSkeleton } from "./PostSkeleton";
+//------------------Hooks------------------//
+import useFocus from "../../hooks/useFocus";
 import { useUserContext } from "../../hooks/useUserContext";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useLike } from "../../hooks/useLike";
+
 export const Post = ({
   postId,
   setPostsIds,
@@ -38,6 +38,7 @@ export const Post = ({
   const [likes, isLiked, checkLike, toggleLike] = useLike();
   const [comments, setComments] = useState<Comment[] | []>([]);
   const loggedUser = useUserContext();
+  const [elRef, setFocus] = useFocus();
   useEffect(() => {
     if (postId && !post) {
       setFetchPost(postId);
@@ -105,7 +106,7 @@ export const Post = ({
                   {isLiked ? <BigLikeIconClicked /> : <BigLikeIcon />}
                   Like
                 </ActionButton>
-                <ActionButton>
+                <ActionButton onClick={setFocus}>
                   <BigCommentIcon />
                   Comment
                 </ActionButton>
@@ -119,28 +120,16 @@ export const Post = ({
               />
             )}
             {comments && (
-              <PostCommentWriter postId={postId} setComments={setComments} />
+              <PostCommentWriter
+                postId={postId}
+                setComments={setComments}
+                elRef={elRef}
+              />
             )}
           </div>
         </PostContainer>
       ) : (
-        <SkeletonPostContainer>
-          <SkeletonTheme color="#3a3b3c" highlightColor="#b0b3b8">
-            <div className="s-title">
-              <Skeleton duration={1.5} circle={true} height={40} width={40} />
-              <div>
-                {" "}
-                <Skeleton height={10} />
-                <Skeleton height={10} />
-              </div>
-            </div>
-            <div className="s-body">
-              <Skeleton height={10} />
-              <Skeleton height={10} />
-              <Skeleton height={10} />
-            </div>
-          </SkeletonTheme>
-        </SkeletonPostContainer>
+        <PostSkeleton />
       )}
     </>
   );

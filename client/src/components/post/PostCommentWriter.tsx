@@ -6,9 +6,11 @@ import { Comment } from "../../constants/interfaces";
 export const PostCommentWriter = ({
   setComments,
   postId,
+  elRef,
 }: {
   setComments: React.Dispatch<React.SetStateAction<Comment[] | []>>;
   postId: string;
+  elRef: any;
 }) => {
   const [user, writeComment] = useComment();
   const [body, setBody] = useState<string>("");
@@ -26,6 +28,9 @@ export const PostCommentWriter = ({
           placeholder="Write a comment..."
           onChange={(e) => setBody(e.target.value)}
           value={body}
+          ref={(tag) => {
+            if (tag) elRef.current = tag;
+          }}
         />
         <SendIcon onClick={handleClick} />
       </CommentWriter>

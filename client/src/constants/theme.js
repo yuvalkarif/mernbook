@@ -10,6 +10,7 @@ export const theme = {
   mainText: "#b0b3b8",
   containerBg: "#242526",
   mainBg: "#1c1e21",
+  greyedBg: "#272728",
 };
 
 // btnBg: rgb(58, 59, 60),

@@ -13,6 +13,7 @@ import {
 import UserContext from "../../constants/context";
 import TextareaAutosize from "react-textarea-autosize";
 import { createPost } from "../../helpers/api";
+import { useDetectClickOutside } from "react-detect-click-outside";
 
 interface PostWriterType {
   body: string;
@@ -30,6 +31,9 @@ export const PostWriter = ({
 }) => {
   const { user } = useContext(UserContext);
   const [showLink, setShowLink] = useState<Boolean>(false);
+  const containerRef = useDetectClickOutside({
+    onTriggered: () => setExpanded(false),
+  });
   const [post, setPost] = useState<PostWriterType>({
     body: "",
     picture: "",
@@ -72,7 +76,11 @@ export const PostWriter = ({
   };
 
   return (
-    <WriterContainer onClick={() => setExpanded(true)} expanded={expanded}>
+    <WriterContainer
+      onClick={() => setExpanded(true)}
+      expanded={expanded}
+      ref={containerRef}
+    >
       <TopContainer>
         <div>
           <WriterProfile src={user?.picture} />
@@ -105,7 +113,7 @@ export const PostWriter = ({
             <PhotoIcon />
             <span>Add a photo</span>
           </ActionButton>
-          {expanded && (
+          {expanded && showLink && (
             <LinkContainer>
               <LinkInput
                 placeholder=".png, .jpg or .webp links"
@@ -117,7 +125,11 @@ export const PostWriter = ({
           )}
         </div>
 
-        <PostButton onClick={submitPost}>Post</PostButton>
+        {expanded && (
+          <PostButton onClick={submitPost} body={post.body ? true : false}>
+            Post
+          </PostButton>
+        )}
       </div>
     </WriterContainer>
   );
