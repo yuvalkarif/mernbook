@@ -26,8 +26,10 @@ interface Image {
 }
 export const PostWriter = ({
   setPostsIds,
+  setNumOfPosts,
 }: {
   setPostsIds: React.Dispatch<React.SetStateAction<string[] | undefined>>;
+  setNumOfPosts: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const { user } = useContext(UserContext);
   const [showLink, setShowLink] = useState<Boolean>(false);
@@ -52,12 +54,13 @@ export const PostWriter = ({
   };
 
   const submitPost = async () => {
-    const { body, picture } = post;
+    const { body } = post;
     if (body && user?._id) {
       let post: any;
       try {
         post = await createPost(user?._id, body, image.src);
         setPostsIds(post);
+        setNumOfPosts((num) => num + 1);
         setExpanded(false);
         setShowLink(false);
         setPost({

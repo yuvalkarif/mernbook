@@ -10,22 +10,34 @@ export const Feed = ({ posts }: { posts: string[] | undefined }) => {
   useEffect(() => {
     if (!postsIds) {
       setPostsIds(posts);
+      setPostsToRender(posts?.splice(-5, 5).reverse());
     }
   }, [posts, postsIds]);
 
+  useEffect(() => {
+    if (postsIds) {
+      setPostsToRender([...postsIds].splice(-5, 5).reverse());
+      setPostsIds([...postsIds].splice(0, postsIds.length - 5));
+    }
+  }, [posts, numOfPosts]);
+
   const handleMore = async () => {
     if (postsIds) {
-      setNumOfPosts(numOfPosts + 5);
+      setPostsToRender((posts) => posts?.concat([...postsIds].splice(-5, 5)));
     }
   };
   return (
     <div>
-      <PostWriter setPostsIds={setPostsIds} />
+      <PostWriter setPostsIds={setPostsIds} setNumOfPosts={setNumOfPosts} />
       <FeedWrapper>
-        {postsIds &&
-          postsIds.slice(-numOfPosts).map((post, i) => {
+        {postsToRender &&
+          postsToRender.map((post, i) => {
             return (
-              <Post key={post + i} postId={post} setPostsIds={setPostsIds} />
+              <Post
+                key={post + i}
+                postId={post}
+                setPostsToRender={setPostsToRender}
+              />
             );
           })}
       </FeedWrapper>
