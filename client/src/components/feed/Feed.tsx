@@ -24,6 +24,7 @@ export const Feed = ({ posts }: { posts: string[] | undefined }) => {
   const handleMore = async () => {
     if (postsIds) {
       setPostsToRender((posts) => posts?.concat([...postsIds].splice(-5, 5)));
+      setPostsIds([...postsIds].splice(0, postsIds.length - 5));
     }
   };
   return (
