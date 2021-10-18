@@ -12,6 +12,7 @@ interface ReducerState {
 }
 type Action =
   | { type: "load_posts" }
+  | { type: "load_last" }
   | { type: "add_post"; post: string }
   | { type: "remove_post"; post: string };
 
@@ -24,6 +25,14 @@ const reducer = (state: ReducerState, action: Action): ReducerState => {
           ...state.postsToRender,
           ...state.postsIds.splice(-5).reverse(),
         ],
+      };
+    case "load_last":
+      return {
+        postsToRender: [
+          ...state.postsToRender,
+          ...state.postsIds.slice(0).reverse(),
+        ],
+        postsIds: [],
       };
     case "add_post":
       return { ...state, postsToRender: [action.post, ...state.postsToRender] };
@@ -45,34 +54,34 @@ export const Feed = ({ posts }: { posts: string[] | [] }) => {
   const [ref, inView] = useInView({ threshold: 1 });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
+  const loadSelector = () => {
+    if (state.postsIds.length >= 5) {
+      dispatchPosts({ type: "load_posts" });
+      console.log("loading 5");
+    } else if (state.postsIds.length >> 0) {
+      dispatchPosts({ type: "load_last" });
+      console.log("loading all");
+    }
+  };
+
   useEffect(() => {
     if (state?.postsToRender.length === 0) {
-      dispatchPosts({ type: "load_posts" });
-      console.log("Loading Initial");
-      console.log(state.postsIds, state.postsToRender);
-      console.log("POSTS", posts);
+      loadSelector();
+      console.log(posts);
     }
   });
 
   useEffect(() => {
     if (inView && state.postsIds.length >> 0 && isLoaded) {
       setIsLoaded(false);
-      handleMore();
+      loadSelector();
       console.log("Handling loading");
     }
   }, [inView, isLoaded]);
 
-  useEffect(() => {
-    console.log("Total", state.postsIds);
-    // console.log("To Render", state.postsToRender);
-    console.log(...state.postsIds.slice(-5));
-  }, [state.postsToRender, state.postsIds]);
-
-  const handleMore = async () => {
-    dispatchPosts({ type: "load_posts" });
-    console.log(state.postsIds, state.postsToRender);
-    console.log("Getting more ");
-  };
+  // const handleMore = async () => {
+  //   loadSelector();
+  // };
   const handleLoaded = () => {
     if (!isLoaded) {
       setIsLoaded(true);

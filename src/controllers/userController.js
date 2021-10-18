@@ -74,14 +74,16 @@ export const updateUser = async (req, res, next) => {
     } catch (err) {
       next(err);
     }
-    user.picture = picture;
-    user.about = { summary, work, education, birthday };
-    try {
-      await user.save();
-    } catch (error) {
-      next(error);
+    if (user) {
+      user.picture = picture;
+      user.about = { summary, work, education, birthday };
+      try {
+        await user.save();
+      } catch (error) {
+        next(error);
+      }
+      res.send("User Updated Successfully");
     }
-    res.send("User Updated Successfully");
   } else res.status(404).send("No ID");
 };
 

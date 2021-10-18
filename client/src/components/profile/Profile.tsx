@@ -8,15 +8,16 @@ import { Feed } from "../feed/Feed";
 import { ProfileBody } from "./Profile.styles";
 
 export const Profile: React.FC = () => {
-  const id = "615ef566e9be20f1898e44a6";
+  const id = "616d4ffeae3c6e194632c815";
   const [user, setFetchUser] = useFetchUser();
   useTitle((user?.displayname || "Profile") + " | Mernbook");
 
   useEffect(() => {
-    if (id) {
+    if (id && !user) {
       setFetchUser(id);
     }
-  }, [id]);
+  });
+
   return (
     <>
       {/* <Wrapper> */}
