@@ -67,7 +67,7 @@ export const Post = ({
       let post: any;
       try {
         post = await deletePost(loggedUser.user._id, postId);
-        dispatchPosts({ type: "remove_post", post });
+        dispatchPosts({ type: "remove_post", post: post });
       } catch (error) {
         console.log(error);
       }

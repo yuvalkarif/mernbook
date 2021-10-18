@@ -95,7 +95,7 @@ export const removePost = async (req, res, next) => {
         next(error);
       }
 
-      res.send(newUser.posts);
+      res.send(postId);
     } else {
       res.send(post ? "No Valid User Found" : "No Valid Post Found");
     }

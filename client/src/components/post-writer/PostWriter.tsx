@@ -57,8 +57,8 @@ export const PostWriter = ({
       let post: any;
       try {
         post = await createPost(user?._id, body, image.src);
-
-        dispatchPosts({ type: " add_post", post });
+        console.log("post", post);
+        dispatchPosts({ type: "add_post", post: post });
         setExpanded(false);
         setShowLink(false);
         setPost({
