@@ -28,10 +28,10 @@ import { useLike } from "../../hooks/useLike";
 
 export const Post = ({
   postId,
-  setPostsToRender,
+  dispatchPosts,
 }: {
   postId: string;
-  setPostsToRender: React.Dispatch<React.SetStateAction<string[] | undefined>>;
+  dispatchPosts: React.Dispatch<any>;
 }) => {
   const [post, setFetchPost] = useFetchPost();
   const [user, setFetchUser] = useFetchUser();
@@ -64,10 +64,10 @@ export const Post = ({
   };
   const handleDelete = async () => {
     if (loggedUser?.user?._id) {
-      let posts: any;
+      let post: any;
       try {
-        posts = await deletePost(loggedUser.user._id, postId);
-        setPostsToRender((posts) => posts?.filter((post) => post !== postId));
+        post = await deletePost(loggedUser.user._id, postId);
+        dispatchPosts({ type: "remove_post", post });
       } catch (error) {
         console.log(error);
       }

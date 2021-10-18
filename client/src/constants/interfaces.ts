@@ -11,7 +11,7 @@ export interface User {
   password: string;
   following?: User[];
   followers?: User[];
-  posts?: string[];
+  posts: string[] | [];
   picture?: string;
   isAdmin: Boolean;
   about?: {

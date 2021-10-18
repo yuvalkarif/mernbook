@@ -25,11 +25,9 @@ interface Image {
   isChecking: boolean;
 }
 export const PostWriter = ({
-  setPostsIds,
-  setNumOfPosts,
+  dispatchPosts,
 }: {
-  setPostsIds: React.Dispatch<React.SetStateAction<string[] | undefined>>;
-  setNumOfPosts: React.Dispatch<React.SetStateAction<number>>;
+  dispatchPosts: React.Dispatch<any>;
 }) => {
   const { user } = useContext(UserContext);
   const [showLink, setShowLink] = useState<Boolean>(false);
@@ -59,8 +57,8 @@ export const PostWriter = ({
       let post: any;
       try {
         post = await createPost(user?._id, body, image.src);
-        setPostsIds(post);
-        setNumOfPosts((num) => num + 1);
+
+        dispatchPosts({ type: " add_post", post });
         setExpanded(false);
         setShowLink(false);
         setPost({

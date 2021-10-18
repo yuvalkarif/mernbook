@@ -27,7 +27,7 @@ export const Profile: React.FC = () => {
       <Wrapper>
         <ProfileBody className="profile-body">
           <ProfileAbout about={user?.about} />
-          <Feed posts={user?.posts} />
+          {user?.posts && <Feed posts={user.posts} />}
         </ProfileBody>
       </Wrapper>
 

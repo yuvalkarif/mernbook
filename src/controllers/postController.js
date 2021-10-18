@@ -22,7 +22,7 @@ export const createPost = async (req, res, next) => {
         user.posts.push(newPost);
         await newPost.save();
         await user.save();
-        res.send(user.posts);
+        res.send(newPost.id);
       } catch (error) {
         next(error);
       }
