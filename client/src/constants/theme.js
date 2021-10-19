@@ -9,7 +9,7 @@ export const theme = {
   altText: "#2e89ff",
   mainText: "#b0b3b8",
   containerBg: "#242526",
-  mainBg: "#1c1e21",
+  mainBg: "#18191c",
   greyedBg: "#272728",
 };
 

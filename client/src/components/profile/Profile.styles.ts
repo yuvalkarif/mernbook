@@ -3,7 +3,7 @@ import { School } from "@styled-icons/material-rounded/School";
 import { LocationOn } from "@styled-icons/material-rounded/LocationOn";
 import { AccessTime } from "@styled-icons/material-rounded/AccessTime";
 import { BirthdayCake } from "@styled-icons/fa-solid";
-import { Container } from "../styled/styledTheme";
+import { Button, Container, TextBox } from "../styled/styledTheme";
 import { Work } from "@styled-icons/material-rounded";
 
 export const ProfilePicBig = styled.img`
@@ -79,8 +79,11 @@ export const AboutContainer = styled(Container)`
 const miniIcon = css`
   fill: ${({ theme }) => theme.btnTxt};
   max-width: 1.5rem;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
   max-height: 1.5rem;
   margin-right: 0.5em;
+  display: flex;
 `;
 export const EduIcon = styled(School)`
   ${miniIcon}
@@ -120,4 +123,55 @@ export const ProfileBody = styled.div`
       width: 100%;
     }
   }
+`;
+
+export const EditorContainer = styled(Container)`
+  margin: 0 auto;
+  margin-top: 1rem;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  textarea {
+    ${TextBox}
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: min-height 250ms ease-out;
+    margin-left: 0;
+    display: flex;
+  }
+  .edit-about {
+    display: flex;
+    flex-direction: column;
+    span {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      p {
+        min-width: 4.5rem;
+      }
+    }
+  }
+  .edit-btns {
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+export const InputEdit = styled.input`
+  ${TextBox};
+
+  width: 100%;
+`;
+
+export const SubmitButton = styled(Button)`
+  background-color: ${({ theme }) => theme.accentBtnBg};
+  color: ${({ theme }) => theme.accentBtnText};
+  margin: 0 0.5rem;
+`;
+export const ExitButton = styled(Button)`
+  background-color: transparent;
+  border: 3px solid ${({ theme }) => theme.accentBtnBg};
+  color: ${({ theme }) => theme.accentBtnBg};
+  margin: 0 0.5rem;
 `;

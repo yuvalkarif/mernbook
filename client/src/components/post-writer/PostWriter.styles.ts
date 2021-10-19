@@ -34,18 +34,6 @@ export const WriterContainer = styled(Container).attrs(
       width: 100%;
     }
   }
-  /* &:focus,
-  &:focus-within {
-    textarea {
-      min-height: 6em;
-    }
-    & > div:last-of-type {
-      flex-direction: column;
-      & > :last-child {
-        margin-top: 1rem;
-      }
-    }
-  } */
 `;
 
 export const TopContainer = styled.div`
