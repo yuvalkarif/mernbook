@@ -32,13 +32,15 @@ export const FormError = styled.p`
   text-align: center;
 `;
 export const MediumImage = styled.img`
-  max-width: 40px;
-  max-height: 40px;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
   border-radius: 100%;
 `;
 export const SmallImage = styled.img`
-  max-width: 32px;
-  max-height: 32px;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
   border-radius: 100%;
 `;
 

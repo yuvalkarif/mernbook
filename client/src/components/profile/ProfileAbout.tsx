@@ -6,6 +6,7 @@ import {
   WorkIcon,
   AboutContainer,
 } from "./Profile.styles";
+import { formatDate } from "../../helpers/date";
 export const ProfileAbout = ({
   about,
 }: {
@@ -32,7 +33,7 @@ export const ProfileAbout = ({
         {about?.birthday && (
           <span>
             <BirthdayIcon />
-            Born <strong>{about.birthday}</strong>
+            Born <strong>{formatDate(about.birthday)}</strong>
           </span>
         )}
         {/* {about?.birthday && (

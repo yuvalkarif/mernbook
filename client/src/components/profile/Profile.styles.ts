@@ -7,8 +7,11 @@ import { Button, Container, TextBox } from "../styled/styledTheme";
 import { Work } from "@styled-icons/material-rounded";
 
 export const ProfilePicBig = styled.img`
+  display: block;
   border-radius: 100%;
-  max-width: 168px;
+  width: 168px;
+  height: 168px;
+  object-fit: cover;
   border: 0.3rem solid ${({ theme }) => theme.containerBg};
 `;
 
@@ -125,12 +128,36 @@ export const ProfileBody = styled.div`
   }
 `;
 
+export const EditorWrapper = styled.div`
+  background-color: rgba(0, 0, 0, 0.35);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  .react-datepicker-wrapper {
+    position: relative;
+  }
+`;
 export const EditorContainer = styled(Container)`
   margin: 0 auto;
-  margin-top: 1rem;
+  margin-top: 2rem;
   max-width: 680px;
+  width: 90%;
   display: flex;
   flex-direction: column;
+  h2 {
+    color: ${({ theme }) => theme.accentBtnText};
+    text-align: center;
+    border-bottom: 1px solid ${({ theme }) => theme.btnBg};
+    padding-bottom: 0.5rem;
+  }
+  h3 {
+    color: ${({ theme }) => theme.accentBtnText};
+    font-weight: 600;
+  }
   textarea {
     ${TextBox}
     font-weight: 500;
@@ -174,4 +201,8 @@ export const ExitButton = styled(Button)`
   border: 3px solid ${({ theme }) => theme.accentBtnBg};
   color: ${({ theme }) => theme.accentBtnBg};
   margin: 0 0.5rem;
+`;
+
+export const ProfileWrapper = styled.div`
+  position: relative;
 `;

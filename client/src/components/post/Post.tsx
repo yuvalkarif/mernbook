@@ -14,8 +14,7 @@ import {
   BigLikeIconClicked,
   BigDeleteIcon,
 } from "./Post.styles";
-import Moment from "react-moment";
-import "moment-timezone";
+import { formatRelative, parseISO, format, formatISO9075 } from "date-fns";
 import { PostComments } from "./PostComments";
 import { PostCommentWriter } from "./PostCommentWriter";
 import { Comment } from "../../constants/interfaces";
@@ -25,6 +24,7 @@ import { PostSkeleton } from "./PostSkeleton";
 import useFocus from "../../hooks/useFocus";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useLike } from "../../hooks/useLike";
+import { formatDate } from "../../helpers/date";
 
 export const Post = ({
   postId,
@@ -84,7 +84,7 @@ export const Post = ({
             <MediumImage src={user?.picture} />
             <div>
               <h4>{user?.displayname}</h4>
-              <Moment format={"LL"}>{post?.date}</Moment>
+              <time>{formatDate(post?.date)}</time>
             </div>
           </span>
           <p>{post?.body}</p>

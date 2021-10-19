@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Account } from "../constants/interfaces";
+import { Account, User } from "../constants/interfaces";
 import * as config from "../variables/config.json";
 
 export const signup = async (account: Account) => {
@@ -121,6 +121,38 @@ export const deletePost = async (id: string, postId: string) => {
     request = await axios.post(`${config.API_URL}/post/delete`, {
       id,
       postId,
+    });
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};
+
+export const updateUser = async ({
+  id,
+  summary,
+  work,
+  education,
+  birthday,
+  picture,
+}: {
+  id?: string;
+  summary?: string;
+  work?: string;
+  education?: string;
+  birthday?: Date;
+  picture?: string;
+}) => {
+  let request;
+  try {
+    request = await axios.patch(`${config.API_URL}/user`, {
+      id,
+      summary,
+      work,
+      education,
+      birthday,
+      picture,
     });
   } catch (error) {
     throw error;

@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   LinkContainer,
   UploadIcon,
   ProfilePicBig,
   LinkInput,
+  Wrapper,
 } from "./ImageInput.styles";
 
-export const ImageInput = () => {
+export const ImageInput = ({
+  picture,
+  setPicture,
+}: {
+  picture: string | undefined;
+  setPicture: React.Dispatch<React.SetStateAction<string | undefined>>;
+}) => {
   const [image, setImage] = useState({
-    src: "",
+    src: picture,
     isValid: false,
     isShowing: false,
   });
+  useEffect(() => {
+    if (image.isValid && image.src !== picture) {
+      console.log("yo");
+      setPicture(image.src);
+    }
+  }, [image.isValid, image.src, picture, setPicture]);
   return (
-    <>
-      {image.isShowing && (
+    <Wrapper>
+      {image.isShowing ? (
         <ProfilePicBig
-          style={{ display: !image.isValid ? "none" : "block" }}
+          style={{ display: !image.isShowing ? "none" : "block" }}
           src={image.src}
           alt=""
           onError={() =>
@@ -25,6 +38,8 @@ export const ImageInput = () => {
           }
           onLoad={() => setImage({ ...image, isShowing: true, isValid: true })}
         />
+      ) : (
+        <ProfilePicBig src={picture} />
       )}
       {
         <LinkContainer>
@@ -36,6 +51,6 @@ export const ImageInput = () => {
           <UploadIcon onClick={() => setImage({ ...image, isShowing: true })} />
         </LinkContainer>
       }
-    </>
+    </Wrapper>
   );
 };

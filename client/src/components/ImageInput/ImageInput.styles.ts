@@ -21,8 +21,15 @@ export const LinkContainer = styled.div`
 `;
 
 export const ProfilePicBig = styled.img`
+  display: block;
+  object-fit: cover;
   border-radius: 100%;
-  max-width: 168px;
+  width: 168px;
+  height: 168px;
+
   border: 0.3rem solid ${({ theme }) => theme.containerBg};
   margin: 0 auto;
+  margin-bottom: 1rem;
 `;
+
+export const Wrapper = styled.div``;

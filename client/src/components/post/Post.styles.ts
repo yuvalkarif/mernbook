@@ -5,6 +5,7 @@ import {
   WideButton,
   bigIcon,
   smallIcon,
+  SmallImage,
 } from "../styled/styledTheme";
 //---------------------------Icon Imports---------------------------//
 import { Like } from "@styled-icons/boxicons-regular";
@@ -170,11 +171,7 @@ export const ActionButton = styled.button.attrs(
       ? ({ theme }) => theme.accentBtnBg
       : ({ theme }) => theme.mainText};
 `;
-export const CommentPic = styled.img`
-  max-width: 2.15rem;
-  max-height: 2.15rem;
-  border-radius: 100%;
-`;
+export const CommentPic = styled(SmallImage)``;
 
 export const ShowButton = styled.span`
   font-weight: 600;
@@ -188,6 +185,8 @@ export const CommentWriter = styled.form`
   display: flex;
   margin-top: 0.25rem;
   position: relative;
+  align-items: center;
+
   textarea {
     ${TextBox}
   }

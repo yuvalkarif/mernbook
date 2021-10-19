@@ -18,7 +18,7 @@ export interface User {
     summary?: string;
     work?: string;
     education?: string;
-    birthday?: string;
+    birthday?: Date;
   };
 }
 export interface Post {

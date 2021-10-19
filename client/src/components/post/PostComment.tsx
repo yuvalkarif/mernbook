@@ -2,11 +2,11 @@ import { Comment, User as UserType } from "../../constants/interfaces";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { useEffect, useContext } from "react";
 import { CommentPic, CommentWrapper, DeleteIcon } from "./Post.styles";
-import Moment from "react-moment";
-import "moment-timezone";
+
 import UserContext from "../../constants/context";
 import { removeComment } from "../../helpers/api";
 import Skeleton from "react-loading-skeleton";
+import { formatDate } from "../../helpers/date";
 
 export const PostComment = ({
   comment,
@@ -50,7 +50,7 @@ export const PostComment = ({
               <DeleteIcon onClick={handleRemove} />
             )}
           </div>
-          {comment?.date && <Moment fromNow>{comment?.date}</Moment>}
+          {comment?.date && <time>{formatDate(comment?.date)}</time>}
         </CommentWrapper>
       ) : null}
     </>

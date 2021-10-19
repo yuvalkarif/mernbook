@@ -3,12 +3,18 @@ import { User } from "../../constants/interfaces";
 import { BarContainer, HeaderContainer, ProfilePicBig } from "./Profile.styles";
 import { Wrapper } from "../styled/styledTheme";
 
-export const ProfileHeader = ({ user }: { user: User | undefined }) => {
+export const ProfileHeader = ({
+  user,
+  setEdit,
+}: {
+  user: User | undefined;
+  setEdit: React.Dispatch<React.SetStateAction<any>>;
+}) => {
   return (
     <>
       <HeaderContainer>
         <Wrapper>
-          {user?.picture && <ProfilePicBig src={user.picture}></ProfilePicBig>}
+          {user?.picture && <ProfilePicBig src={user.picture} />}
           <h1>{user?.displayname}</h1>
           <p>{user?.about?.summary ? user?.about.summary : "Add Bio"}</p>
         </Wrapper>
@@ -18,7 +24,7 @@ export const ProfileHeader = ({ user }: { user: User | undefined }) => {
         <Wrapper>
           <div>
             <span>Posts</span>
-            <span>About</span>
+            <span onClick={() => setEdit(true)}>About</span>
             <span>Friends {user?.followers?.length}</span>
           </div>
         </Wrapper>
