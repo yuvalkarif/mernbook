@@ -59,7 +59,7 @@ export const Feed = ({
   });
   const [ref, inView] = useInView({ threshold: 1 });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
+  console.log(posts);
   const loadSelector = () => {
     if (state.postsIds.length >= 5) {
       dispatchPosts({ type: "load_posts" });

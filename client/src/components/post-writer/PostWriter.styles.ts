@@ -16,7 +16,7 @@ export const WriterContainer = styled(Container).attrs(
   textarea {
     min-height: ${(props) => (props.expanded ? "6rem" : "0")};
   }
-  margin-bottom: 1rem;
+  margin-block: 1rem;
   & > div:last-of-type {
     margin-top: 0.5em;
     display: flex;

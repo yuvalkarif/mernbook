@@ -19,7 +19,6 @@ export const Header = ({ user }: { user: User | undefined }) => {
   const handleLogout = async () => {
     try {
       await logout();
-      console.log("history");
       if (checkForUser) checkForUser();
     } catch (error) {
       console.log(error);
@@ -29,6 +28,7 @@ export const Header = ({ user }: { user: User | undefined }) => {
     <HeaderWrapper>
       <div>
         <MediumImage
+          onClick={() => history.push("/")}
           src={
             "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png"
           }

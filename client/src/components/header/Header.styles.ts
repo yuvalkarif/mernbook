@@ -12,8 +12,8 @@ export const HeaderWrapper = styled.div`
     display: flex;
     align-items: center;
   }
-  margin-bottom: 1rem;
-  padding-block: 0.2rem;
+
+  padding-block: 0.5rem;
   @media (max-width: 768px) {
     display: flex;
   }
@@ -25,7 +25,6 @@ export const HeaderProfile = styled.div`
   span {
     font-weight: 600;
     color: ${({ theme }) => theme.btnText};
-    margin-left: 0.25rem;
     @media (max-width: 768px) {
       display: none;
     }
@@ -33,7 +32,7 @@ export const HeaderProfile = styled.div`
 `;
 export const SearchInput = styled.input`
   ${TextBox}
-  max-width: 20rem;
+  width:100%;
   max-height: 2.5rem;
   border-radius: 1.5rem;
   margin: 0 auto;
@@ -41,10 +40,16 @@ export const SearchInput = styled.input`
 `;
 export const HeaderSearch = styled.div`
   justify-self: center;
+  max-width: 30rem;
   width: 100%;
+
   div {
     position: relative;
-    margin: 0 auto;
+    width: 100%;
+    margin-left: 0.5rem;
+    @media (min-width: 768px) {
+      margin: 0 auto;
+    }
   }
 `;
 
@@ -60,7 +65,6 @@ export const LogoutIcon = styled(Logout)`
   border-radius: 100%;
   padding: 0.5rem;
   background-color: ${({ theme }) => theme.btnBg};
-  margin-left: 0.5rem;
   min-width: 1.5rem;
 `;
 
@@ -68,7 +72,10 @@ export const ProfileButton = styled(Link)`
   ${WideButton}
   text-decoration: none;
   border-radius: 2.5rem;
-  padding: 0.35rem;
+  & > * {
+    padding: 0.35rem;
+  }
+
   @media (max-width: 768px) {
     padding: 0;
     margin-left: 0.5rem;

@@ -202,7 +202,7 @@ export const readPostsByFollowed = async (req, res, next) => {
         postIds = postIds.concat(followings.posts);
       }
       try {
-        posts = await Post.find({ _id: { $in: postIds } });
+        posts = await Post.find({ _id: { $in: postIds } }).distinct("_id");
       } catch (error) {
         next(error);
       }

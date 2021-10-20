@@ -16,7 +16,7 @@ export const Button = styled.button`
 `;
 export const Wrapper = styled.div`
   width: 90%;
-  max-width: 60rem;
+  max-width: 56rem;
   margin: 0 auto;
   font-size: 1rem;
 `;

@@ -4,6 +4,7 @@ import { useUserContext } from "../../hooks/useUserContext";
 import { useState, useEffect } from "react";
 import { getPostsByFollowed } from "../../helpers/api";
 import { Header } from "../header/Header";
+import { DashboardWrapper } from "./Dashboard.styled";
 
 export const Dashboard = () => {
   const { user } = useUserContext();
@@ -25,9 +26,9 @@ export const Dashboard = () => {
   return (
     <>
       <Header user={user} />
-      <Wrapper>
-        {posts ? <Feed posts={posts} /> : <p>No posts found</p>}
-      </Wrapper>
+      <DashboardWrapper>
+        {posts ? <Feed posts={posts} isUser={!!user} /> : <p>No posts found</p>}
+      </DashboardWrapper>
     </>
   );
 };

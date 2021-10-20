@@ -74,7 +74,7 @@ export const BarContainer = styled.div`
 export const AboutContainer = styled(Container)`
   display: flex;
   flex-direction: column;
-
+  margin-top: 1rem;
   span {
     display: flex;
     align-items: bottom;
@@ -125,7 +125,7 @@ export const PersonAddIcon = styled(PersonAdd)`
 
 export const ProfileBody = styled.div`
   display: flex;
-  margin-top: 1rem;
+
   flex-direction: column;
   & > :nth-child(1) {
     margin-bottom: 1rem;
