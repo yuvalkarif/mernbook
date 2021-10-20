@@ -1,5 +1,5 @@
 import { User } from "../../constants/interfaces";
-import { MediumImage, SmallImage } from "../styled/styledTheme";
+import { MediumImage } from "../styled/styledTheme";
 import {
   HeaderWrapper,
   HeaderProfile,
@@ -13,11 +13,13 @@ import {
 export const Header = ({ user }: { user: User | undefined }) => {
   return (
     <HeaderWrapper>
-      <MediumImage
-        src={
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png"
-        }
-      />
+      <div>
+        <MediumImage
+          src={
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png"
+          }
+        />
+      </div>
       <HeaderSearch>
         <div>
           <SearchInput type="text" />
@@ -27,7 +29,7 @@ export const Header = ({ user }: { user: User | undefined }) => {
 
       <HeaderProfile>
         <ProfileButton to="/">
-          <SmallImage src={user?.picture} />
+          <MediumImage src={user?.picture} />
           <span>{user?.displayname}</span>
         </ProfileButton>
         <LogoutIcon />

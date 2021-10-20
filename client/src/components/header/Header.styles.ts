@@ -13,7 +13,10 @@ export const HeaderWrapper = styled.div`
     align-items: center;
   }
   margin-bottom: 1rem;
-  padding-block: 0.5rem;
+  padding-block: 0.2rem;
+  @media (max-width: 768px) {
+    display: flex;
+  }
 `;
 
 export const HeaderProfile = styled.div`
@@ -58,6 +61,7 @@ export const LogoutIcon = styled(Logout)`
   padding: 0.5rem;
   background-color: ${({ theme }) => theme.btnBg};
   margin-left: 0.5rem;
+  min-width: 1.5rem;
 `;
 
 export const ProfileButton = styled(Link)`
@@ -65,4 +69,8 @@ export const ProfileButton = styled(Link)`
   text-decoration: none;
   border-radius: 2.5rem;
   padding: 0.35rem;
+  @media (max-width: 768px) {
+    padding: 0;
+    margin-left: 0.5rem;
+  }
 `;
