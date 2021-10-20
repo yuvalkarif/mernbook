@@ -12,10 +12,7 @@ import { BirthdayIcon, WorkIcon, EduIcon } from "./Profile.styles";
 import React, { useEffect, useState } from "react";
 import { updateUser } from "../../helpers/api";
 import { useDetectClickOutside } from "react-detect-click-outside";
-import { format } from "date-fns";
-import { formatDate } from "../../helpers/date";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { formatDateInput } from "../../helpers/date";
 export const ProfileEditor = ({
   user,
   setEdit,
@@ -30,13 +27,16 @@ export const ProfileEditor = ({
     birthday: user.about?.birthday,
   });
   const [picture, setPicture] = useState(user.picture);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState("");
   const containerRef = useDetectClickOutside({
     onTriggered: () => setEdit(false),
   });
   useEffect(() => {
-    console.log("ProfileEditor");
+    if (editUser.birthday && startDate === "") {
+      setStartDate(formatDateInput(editUser.birthday));
+    }
   });
+
   const handleSubmit = async () => {
     try {
       await updateUser({ id: user._id, picture: picture, ...editUser });
@@ -47,6 +47,7 @@ export const ProfileEditor = ({
   };
   const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.valueAsDate) {
+      setStartDate(e.target.value);
       setEditUser({ ...editUser, birthday: e.target?.valueAsDate });
     }
   };
@@ -90,11 +91,7 @@ export const ProfileEditor = ({
           <span>
             <BirthdayIcon />
             <p>Born in</p>
-            <InputEdit
-              type="date"
-              value={format(editUser?.birthday || new Date(), "yyyy-mm-dd")}
-              onChange={handleDate}
-            />
+            <InputEdit type="date" value={startDate} onChange={handleDate} />
           </span>
         </div>
         <div className="edit-btns">

@@ -1,6 +1,12 @@
 import React from "react";
 import { User } from "../../constants/interfaces";
-import { BarContainer, HeaderContainer, ProfilePicBig } from "./Profile.styles";
+import {
+  BarContainer,
+  EditButton,
+  EditIcon,
+  HeaderContainer,
+  ProfilePicBig,
+} from "./Profile.styles";
 import { Wrapper } from "../styled/styledTheme";
 
 export const ProfileHeader = ({
@@ -24,9 +30,12 @@ export const ProfileHeader = ({
         <Wrapper>
           <div>
             <span>Posts</span>
-            <span onClick={() => setEdit(true)}>About</span>
             <span>Friends {user?.followers?.length}</span>
           </div>
+          <EditButton onClick={() => setEdit(true)}>
+            <EditIcon />
+            Edit Profile
+          </EditButton>
         </Wrapper>
       </BarContainer>
     </>

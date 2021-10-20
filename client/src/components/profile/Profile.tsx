@@ -7,12 +7,14 @@ import { Wrapper } from "../styled/styledTheme";
 import { Feed } from "../feed/Feed";
 import { ProfileBody, ProfileWrapper } from "./Profile.styles";
 import { ProfileEditor } from "./ProfileEditor";
+import { useUserContext } from "../../hooks/useUserContext";
 
 export const Profile: React.FC = () => {
   const id = "616d4ffeae3c6e194632c815";
   const [user, setFetchUser] = useFetchUser();
   useTitle((user?.displayname || "Profile") + " | Mernbook");
   const [edit, setEdit] = useState(false);
+  const { user: loggedUser } = useUserContext();
 
   useEffect(() => {
     if (id && !user) {
@@ -36,5 +38,3 @@ export const Profile: React.FC = () => {
     </ProfileWrapper>
   );
 };
-
-// user?.posts?.reverse()

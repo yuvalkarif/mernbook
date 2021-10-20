@@ -1,12 +1,12 @@
 import { User } from "../../constants/interfaces";
 import {
   EduIcon,
-  TimeIcon,
   BirthdayIcon,
   WorkIcon,
   AboutContainer,
 } from "./Profile.styles";
-import { formatDate } from "../../helpers/date";
+import { formatDateFromDB } from "../../helpers/date";
+
 export const ProfileAbout = ({
   about,
 }: {
@@ -33,7 +33,7 @@ export const ProfileAbout = ({
         {about?.birthday && (
           <span>
             <BirthdayIcon />
-            Born <strong>{formatDate(about.birthday)}</strong>
+            Born <strong>{formatDateFromDB(about.birthday)}</strong>
           </span>
         )}
         {/* {about?.birthday && (

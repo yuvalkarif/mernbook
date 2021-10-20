@@ -2,8 +2,9 @@ import styled, { css } from "styled-components";
 import { School } from "@styled-icons/material-rounded/School";
 import { LocationOn } from "@styled-icons/material-rounded/LocationOn";
 import { AccessTime } from "@styled-icons/material-rounded/AccessTime";
+import { Edit } from "@styled-icons/material-rounded";
 import { BirthdayCake } from "@styled-icons/fa-solid";
-import { Button, Container, TextBox } from "../styled/styledTheme";
+import { Button, Container, TextBox, WideButton } from "../styled/styledTheme";
 import { Work } from "@styled-icons/material-rounded";
 
 export const ProfilePicBig = styled.img`
@@ -46,6 +47,12 @@ export const BarContainer = styled.div`
     &:first-child {
       display: flex;
       justify-content: space-between;
+      width: 90%;
+      align-items: center;
+
+      div {
+        display: flex;
+      }
 
       span {
         padding: 1rem;
@@ -102,6 +109,12 @@ export const BirthdayIcon = styled(BirthdayCake)`
 `;
 export const WorkIcon = styled(Work)`
   ${miniIcon}
+`;
+export const EditIcon = styled(Edit)`
+  ${miniIcon}
+  min-height: 1.1rem;
+  max-height: 1.1rem;
+  margin: 0;
 `;
 
 export const ProfileBody = styled.div`
@@ -205,4 +218,11 @@ export const ExitButton = styled(Button)`
 
 export const ProfileWrapper = styled.div`
   position: relative;
+`;
+export const EditButton = styled(Button)`
+  background-color: ${({ theme }) => theme.accentBtnBg};
+  color: ${({ theme }) => theme.accentBtnText};
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
 `;

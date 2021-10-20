@@ -7,8 +7,13 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   following: [{ type: mongoose.Types.ObjectId, ref: "User" }],
   followers: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-  posts: [{ type: mongoose.Types.ObjectId, ref: "Post" }],
-  picture: { type: String },
+  posts: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Post",
+    },
+  ],
+  picture: { type: String, default: "https://i.imgur.com/von5DZb.jpg" },
   isAdmin: {
     type: Boolean,
     default: false,
