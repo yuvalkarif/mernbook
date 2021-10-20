@@ -32,6 +32,16 @@ export const login = async (account: Account) => {
   }
 };
 
+export const logout = async () => {
+  let request;
+  try {
+    request = await axios.post(`${config.API_URL}/logout`);
+  } catch (error) {
+    throw error;
+  }
+  return request.data;
+};
+
 export const getUser = async (id: string) => {
   let request;
   try {

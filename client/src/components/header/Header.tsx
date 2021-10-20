@@ -1,4 +1,5 @@
 import { User } from "../../constants/interfaces";
+import { logout } from "../../helpers/api";
 import { MediumImage } from "../styled/styledTheme";
 import {
   HeaderWrapper,
@@ -9,8 +10,21 @@ import {
   ProfileButton,
   LogoutIcon,
 } from "./Header.styles";
+import { useHistory } from "react-router";
+import { useUserContext } from "../../hooks/useUserContext";
 
 export const Header = ({ user }: { user: User | undefined }) => {
+  const history = useHistory();
+  const { checkForUser } = useUserContext();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      console.log("history");
+      if (checkForUser) checkForUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <HeaderWrapper>
       <div>
@@ -32,7 +46,7 @@ export const Header = ({ user }: { user: User | undefined }) => {
           <MediumImage src={user?.picture} />
           <span>{user?.displayname}</span>
         </ProfileButton>
-        <LogoutIcon />
+        <LogoutIcon onClick={handleLogout} />
       </HeaderProfile>
     </HeaderWrapper>
   );

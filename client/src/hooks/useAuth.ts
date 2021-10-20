@@ -12,7 +12,7 @@ export const useAuth = () => {
     try {
       req = await checkUser();
       console.log("Auth Succeeded");
-      setAuth({ user: req, isAuth: true });
+      setAuth({ user: req, isAuth: true, checkForUser: checkForUser });
     } catch (error) {
       console.log("Auth Failed");
       setAuth({ isAuth: false });

@@ -40,4 +40,5 @@ export interface Comment {
 export interface Auth {
   isAuth?: boolean;
   user?: User;
+  checkForUser?: () => Promise<void>;
 }

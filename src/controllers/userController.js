@@ -50,6 +50,12 @@ export const currentUser = (req, res, next) => {
   req.user ? res.send(req.user) : res.status(401).send("User not logged in");
 };
 
+export const logout = (req, res, next) => {
+  req.logout();
+  req.session.destroy();
+  res.send("logged out");
+};
+
 export const getUser = async (req, res, next) => {
   const { id } = req.params;
   let user;
