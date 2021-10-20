@@ -160,3 +160,14 @@ export const updateUser = async ({
 
   return request.data;
 };
+
+export const getPostsByFollowed = async (id: string) => {
+  let request;
+  try {
+    request = await axios.get(`${config.API_URL}/feed/${id}`);
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};

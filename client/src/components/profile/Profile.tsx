@@ -25,7 +25,9 @@ export const Profile: React.FC = () => {
 
   return (
     <ProfileWrapper>
-      <ProfileHeader user={user} setEdit={setEdit} />
+      {loggedUser?._id === id && (
+        <ProfileHeader user={user} setEdit={setEdit} />
+      )}
       {user !== undefined && edit && (
         <ProfileEditor user={user} setEdit={setEdit} />
       )}

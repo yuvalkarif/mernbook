@@ -183,7 +183,7 @@ export const removeComment = async (req, res, next) => {
 };
 
 export const readPostsByFollowed = async (req, res, next) => {
-  const { id } = req.body;
+  const { id } = req.params;
   if (id && Types.ObjectId.isValid(id)) {
     let user;
     let postIds = [];

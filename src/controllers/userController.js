@@ -64,6 +64,20 @@ export const getUser = async (req, res, next) => {
     } else res.status(404).send("User does not Exist");
   } else res.status(404).send("No ID");
 };
+export const getUserByUsername = async (req, res, next) => {
+  const { username } = req.params;
+  let user;
+  if (username) {
+    try {
+      user = await User.findOne({ username: username });
+    } catch (err) {
+      next(err);
+    }
+    if (user !== undefined) {
+      res.send(user);
+    } else res.status(404).send("User does not Exist");
+  } else res.status(404).send("No ID");
+};
 
 export const updateUser = async (req, res, next) => {
   const { id, picture, summary, work, education, birthday } = req.body;

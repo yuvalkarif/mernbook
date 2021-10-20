@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 const { Login } = lazily(() => import("./components/login/Login"));
 const { Signup } = lazily(() => import("./components/signup/Signup"));
 const { Profile } = lazily(() => import("./components/profile/Profile"));
+const { Dashboard } = lazily(() => import("./components/dashboard/Dashboard"));
 
 function App() {
   const [user, checkForUser] = useAuth();
@@ -23,6 +24,9 @@ function App() {
           <Suspense fallback={<p>Loading...</p>}>
             <Switch>
               <ProtectedRoute path={"/"} exact>
+                <Dashboard />
+              </ProtectedRoute>
+              <ProtectedRoute path={"/p/:username"} exact>
                 <Profile />
               </ProtectedRoute>
               <ProtectedRoute path="/login" exact alt>
