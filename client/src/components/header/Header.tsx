@@ -28,7 +28,7 @@ export const Header = ({ user }: { user: User | undefined }) => {
       </HeaderSearch>
 
       <HeaderProfile>
-        <ProfileButton to="/">
+        <ProfileButton to={`/p/${user?.username}`}>
           <MediumImage src={user?.picture} />
           <span>{user?.displayname}</span>
         </ProfileButton>

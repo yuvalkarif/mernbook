@@ -171,3 +171,35 @@ export const getPostsByFollowed = async (id: string) => {
 
   return request.data;
 };
+
+export const getUserByUsername = async (username: string) => {
+  let request;
+  try {
+    request = await axios.get(`${config.API_URL}/username/${username}`);
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};
+
+export const followUser = async (
+  id: string,
+  userId: string,
+  isFollowing: boolean
+) => {
+  let request;
+  try {
+    request = await axios.patch(
+      `${config.API_URL}/${isFollowing ? "unfollow" : "follow"}`,
+      {
+        id,
+        userId,
+      }
+    );
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};

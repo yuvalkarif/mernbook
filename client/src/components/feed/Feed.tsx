@@ -46,7 +46,13 @@ const reducer = (state: ReducerState, action: Action): ReducerState => {
   }
 };
 
-export const Feed = ({ posts }: { posts: string[] | [] }) => {
+export const Feed = ({
+  posts,
+  isUser,
+}: {
+  posts: string[] | [];
+  isUser?: boolean;
+}) => {
   const [state, dispatchPosts] = useReducer(reducer, {
     postsToRender: [],
     postsIds: posts,
@@ -90,7 +96,7 @@ export const Feed = ({ posts }: { posts: string[] | [] }) => {
 
   return (
     <div>
-      <PostWriter dispatchPosts={dispatchPosts} />
+      {isUser && <PostWriter dispatchPosts={dispatchPosts} />}
       <FeedWrapper>
         {state?.postsToRender &&
           state?.postsToRender.map((post, i) => {
@@ -106,7 +112,6 @@ export const Feed = ({ posts }: { posts: string[] | [] }) => {
             );
           })}
       </FeedWrapper>
-      {/* <button type="button" onClick={handleMore}></button> */}
       {isLoaded && <div ref={ref} style={{ marginTop: "1rem" }}></div>}
     </div>
   );

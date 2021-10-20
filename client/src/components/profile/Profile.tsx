@@ -8,6 +8,8 @@ import { Feed } from "../feed/Feed";
 import { ProfileBody, ProfileWrapper } from "./Profile.styles";
 import { ProfileEditor } from "./ProfileEditor";
 import { useUserContext } from "../../hooks/useUserContext";
+import { useParams } from "react-router";
+import { Header } from "../header/Header";
 
 export const Profile: React.FC = () => {
   const id = "616d4ffeae3c6e194632c815";
@@ -15,28 +17,35 @@ export const Profile: React.FC = () => {
   useTitle((user?.displayname || "Profile") + " | Mernbook");
   const [edit, setEdit] = useState(false);
   const { user: loggedUser } = useUserContext();
-
+  const { username } = useParams<{ username?: string }>();
   useEffect(() => {
-    if (id && !user) {
-      setFetchUser(id);
+    if (username && !user) {
+      setFetchUser(username, false);
     }
-    console.log(user);
   });
 
   return (
-    <ProfileWrapper>
-      {loggedUser?._id === id && (
-        <ProfileHeader user={user} setEdit={setEdit} />
-      )}
-      {user !== undefined && edit && (
-        <ProfileEditor user={user} setEdit={setEdit} />
-      )}
-      <Wrapper>
-        <ProfileBody className="profile-body">
-          <ProfileAbout about={user?.about} />
-          {user?.posts && <Feed posts={user.posts} />}
-        </ProfileBody>
-      </Wrapper>
-    </ProfileWrapper>
+    <>
+      <Header user={loggedUser} />
+      <ProfileWrapper>
+        <ProfileHeader
+          user={user}
+          setEdit={setEdit}
+          isUser={loggedUser?._id === user?._id}
+        />
+
+        {user !== undefined && edit && (
+          <ProfileEditor user={user} setEdit={setEdit} />
+        )}
+        <Wrapper>
+          <ProfileBody className="profile-body">
+            <ProfileAbout about={user?.about} />
+            {user?.posts && (
+              <Feed posts={user.posts} isUser={loggedUser?._id === user?._id} />
+            )}
+          </ProfileBody>
+        </Wrapper>
+      </ProfileWrapper>
+    </>
   );
 };

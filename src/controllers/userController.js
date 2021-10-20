@@ -156,8 +156,13 @@ export const unfollowUser = async (req, res, next) => {
       next(error);
     }
     if (user && userToFollow) {
-      userToFollow.followers.filter((follower) => follower.id !== id);
-      user.following.filter((follower) => follower.id !== userId);
+      userToFollow.followers = userToFollow.followers.filter(
+        (follower) => follower._id.toString() !== id
+      );
+
+      user.following = user.following.filter(
+        (follower) => follower._id.toString() !== userId
+      );
       try {
         await user.save();
         await userToFollow.save();

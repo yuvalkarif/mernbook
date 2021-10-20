@@ -5,7 +5,7 @@ import { AccessTime } from "@styled-icons/material-rounded/AccessTime";
 import { Edit } from "@styled-icons/material-rounded";
 import { BirthdayCake } from "@styled-icons/fa-solid";
 import { Button, Container, TextBox, WideButton } from "../styled/styledTheme";
-import { Work } from "@styled-icons/material-rounded";
+import { Work, PersonAdd } from "@styled-icons/material-rounded";
 
 export const ProfilePicBig = styled.img`
   display: block;
@@ -116,6 +116,12 @@ export const EditIcon = styled(Edit)`
   max-height: 1.1rem;
   margin: 0;
 `;
+export const PersonAddIcon = styled(PersonAdd)`
+  ${miniIcon}
+  min-height: 1.1rem;
+  max-height: 1.1rem;
+  margin: 0;
+`;
 
 export const ProfileBody = styled.div`
   display: flex;
@@ -219,6 +225,7 @@ export const ExitButton = styled(Button)`
 export const ProfileWrapper = styled.div`
   position: relative;
 `;
+
 export const EditButton = styled(Button)`
   background-color: ${({ theme }) => theme.accentBtnBg};
   color: ${({ theme }) => theme.accentBtnText};

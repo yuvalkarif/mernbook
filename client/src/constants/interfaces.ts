@@ -9,8 +9,8 @@ export interface User {
   username: string;
   displayname: string;
   password: string;
-  following?: User[];
-  followers?: User[];
+  following?: string[];
+  followers?: string[];
   posts: string[] | [];
   picture?: string;
   isAdmin: Boolean;
