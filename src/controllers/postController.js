@@ -1,6 +1,7 @@
 import User from "../models/user";
 import Post from "../models/post";
 import { Types } from "mongoose";
+import addObjToArray from "../helpers/addObjToArray";
 
 export const createPost = async (req, res, next) => {
   const { id, body, picture } = req.body;
@@ -183,7 +184,7 @@ export const removeComment = async (req, res, next) => {
 };
 
 export const readPostsByFollowed = async (req, res, next) => {
-  const { id } = req.body;
+  const { id } = req.params;
   if (id && Types.ObjectId.isValid(id)) {
     let user;
     let postIds = [];
@@ -253,11 +254,3 @@ export const likePost = async (req, res, next) => {
       );
   }
 };
-//CreateReadUpdateDelete
-
-// helpers
-function addObjToArray(arr, obj) {
-  const resultArr = arr.filter((arrObj) => arrObj._id?.toString() !== obj);
-  if (resultArr.length === arr.length) resultArr.push(obj);
-  return resultArr;
-}

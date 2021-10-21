@@ -6,17 +6,22 @@ let router = Router();
 //User
 router.post("/signup", userController.signup); // (username,password,displayname)
 router.post("/login", userController.login); // (username,password)
+router.post("/logout", userController.logout);
+
 router.get("/auth", userController.currentUser); // to be logged in ()
 router.get("/user/:id", userController.getUser); // (id)
+router.get("/username/:username", userController.getUserByUsername); // (id)
 router.patch("/user", userController.updateUser); // (id, picture?, summary?, work?, education?, birthday?)
 router.patch("/follow", userController.followUser); // (id,userId)
 router.patch("/unfollow", userController.unfollowUser); // (id,userId)
+
+router.get("/search/:query", userController.searchUser);
 //Post
 router.post("/post", postController.createPost);
 router.patch("/post", postController.updatePost);
 router.post("/post/delete", postController.removePost);
 router.get("/post/:postId", postController.readPost);
-router.get("/feed", postController.readPostsByFollowed);
+router.get("/feed/:id", postController.readPostsByFollowed);
 router.patch("/like", postController.likePost);
 //Comments
 router.post("/comment", postController.createComment);

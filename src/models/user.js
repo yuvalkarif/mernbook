@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
+import mongooseFuzzySearching from "mongoose-fuzzy-searching";
 
 const userSchema = new Schema({
   username: { type: String, required: true },
@@ -24,6 +25,10 @@ const userSchema = new Schema({
     education: { type: String },
     birthday: { type: Date },
   },
+});
+
+userSchema.plugin(mongooseFuzzySearching, {
+  fields: ["username", "displayname"],
 });
 
 const User = model("User", userSchema);

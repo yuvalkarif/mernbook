@@ -32,6 +32,16 @@ export const login = async (account: Account) => {
   }
 };
 
+export const logout = async () => {
+  let request;
+  try {
+    request = await axios.post(`${config.API_URL}/logout`);
+  } catch (error) {
+    throw error;
+  }
+  return request.data;
+};
+
 export const getUser = async (id: string) => {
   let request;
   try {
@@ -154,6 +164,49 @@ export const updateUser = async ({
       birthday,
       picture,
     });
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};
+
+export const getPostsByFollowed = async (id: string) => {
+  let request;
+  try {
+    request = await axios.get(`${config.API_URL}/feed/${id}`);
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};
+
+export const getUserByUsername = async (username: string) => {
+  let request;
+  try {
+    request = await axios.get(`${config.API_URL}/username/${username}`);
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};
+
+export const followUser = async (
+  id: string,
+  userId: string,
+  isFollowing: boolean
+) => {
+  let request;
+  try {
+    request = await axios.patch(
+      `${config.API_URL}/${isFollowing ? "unfollow" : "follow"}`,
+      {
+        id,
+        userId,
+      }
+    );
   } catch (error) {
     throw error;
   }

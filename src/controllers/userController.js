@@ -3,7 +3,6 @@ import passport from "passport";
 import bcrypt from "bcrypt";
 const saltRounds = 10;
 import { Types } from "mongoose";
-
 import User from "../models/user";
 
 export const signup = async (req, res, next) => {
@@ -50,12 +49,32 @@ export const currentUser = (req, res, next) => {
   req.user ? res.send(req.user) : res.status(401).send("User not logged in");
 };
 
+export const logout = (req, res, next) => {
+  req.logout();
+  req.session.destroy();
+  res.send("logged out");
+};
+
 export const getUser = async (req, res, next) => {
   const { id } = req.params;
   let user;
   if (id && Types.ObjectId.isValid(id)) {
     try {
       user = await User.findOne({ _id: id });
+    } catch (err) {
+      next(err);
+    }
+    if (user !== undefined) {
+      res.send(user);
+    } else res.status(404).send("User does not Exist");
+  } else res.status(404).send("No ID");
+};
+export const getUserByUsername = async (req, res, next) => {
+  const { username } = req.params;
+  let user;
+  if (username) {
+    try {
+      user = await User.findOne({ username: username });
     } catch (err) {
       next(err);
     }
@@ -113,7 +132,7 @@ export const followUser = async (req, res, next) => {
       } catch (error) {
         next(error);
       }
-      res.send("Followed User");
+      res.send(userToFollow.followers);
     } else {
       res.status(404).send("Users not Found");
     }
@@ -142,15 +161,20 @@ export const unfollowUser = async (req, res, next) => {
       next(error);
     }
     if (user && userToFollow) {
-      userToFollow.followers.filter((follower) => follower.id !== id);
-      user.following.filter((follower) => follower.id !== userId);
+      userToFollow.followers = userToFollow.followers.filter(
+        (follower) => follower._id.toString() !== id
+      );
+
+      user.following = user.following.filter(
+        (follower) => follower._id.toString() !== userId
+      );
       try {
         await user.save();
         await userToFollow.save();
       } catch (error) {
         next(error);
       }
-      res.send("Unfollowed User");
+      res.send(userToFollow.followers);
     } else {
       res.status(404).send("Users not Found");
     }
@@ -165,4 +189,19 @@ export const unfollowUser = async (req, res, next) => {
           : "No Valid User and  ID Detected"
       );
   }
+};
+
+export const searchUser = async (req, res, next) => {
+  const { query } = req.params;
+  if (query) {
+    let users;
+    try {
+      users = await User.fuzzySearch(query);
+    } catch (error) {
+      next(error);
+    }
+    if (users) {
+      res.send(users);
+    } else res.status(404).send("No users found ");
+  } else res.status(404).send("Please fill in a Query");
 };
