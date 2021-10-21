@@ -26,7 +26,7 @@ export const Profile: React.FC = () => {
 
   return (
     <>
-      <Header user={loggedUser} />
+      <Header />
       <ProfileWrapper>
         <ProfileHeader
           user={user}

@@ -49,10 +49,9 @@ export const HeaderSearch = styled.div`
 `;
 
 export const SearchIcon = styled(Search)`
-  ${smallIcon}
-  position: absolute;
-  right: 0.75rem;
-  top: 0.75rem;
+  ${bigIcon}
+  ${WideButton}
+  padding:0.5rem 0.5rem;
 `;
 export const LogoutIcon = styled(Logout)`
   ${bigIcon}

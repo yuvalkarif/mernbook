@@ -13,6 +13,7 @@ const { Login } = lazily(() => import("./components/login/Login"));
 const { Signup } = lazily(() => import("./components/signup/Signup"));
 const { Profile } = lazily(() => import("./components/profile/Profile"));
 const { Dashboard } = lazily(() => import("./components/dashboard/Dashboard"));
+const { Search } = lazily(() => import("./components/search/Search"));
 
 function App() {
   const [user, checkForUser] = useAuth();
@@ -28,6 +29,9 @@ function App() {
               </ProtectedRoute>
               <ProtectedRoute path={"/p/:username"} exact>
                 <Profile />
+              </ProtectedRoute>
+              <ProtectedRoute path={"/search"} exact>
+                <Search />
               </ProtectedRoute>
               <ProtectedRoute path="/login" exact alt>
                 <Login checkForUser={checkForUser} />

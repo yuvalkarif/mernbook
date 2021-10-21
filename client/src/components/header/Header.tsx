@@ -13,9 +13,9 @@ import {
 import { useHistory } from "react-router";
 import { useUserContext } from "../../hooks/useUserContext";
 
-export const Header = ({ user }: { user: User | undefined }) => {
+export const Header = () => {
   const history = useHistory();
-  const { checkForUser } = useUserContext();
+  const { checkForUser, user } = useUserContext();
   const handleLogout = async () => {
     try {
       await logout();
@@ -36,7 +36,6 @@ export const Header = ({ user }: { user: User | undefined }) => {
       </div>
       <HeaderSearch>
         <div>
-          <SearchInput type="text" />
           <SearchIcon />
         </div>
       </HeaderSearch>

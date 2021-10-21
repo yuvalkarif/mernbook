@@ -213,3 +213,14 @@ export const followUser = async (
 
   return request.data;
 };
+
+export const searchUser = async (query: string) => {
+  let request;
+  try {
+    request = await axios.get(`${config.API_URL}/search/${query}`);
+  } catch (error) {
+    throw error;
+  }
+
+  return request.data;
+};
