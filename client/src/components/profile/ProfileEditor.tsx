@@ -13,12 +13,15 @@ import React, { useEffect, useState } from "react";
 import { updateUser } from "../../helpers/api";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { formatDateInput } from "../../helpers/date";
+import { useUserContext } from "../../hooks/useUserContext";
 export const ProfileEditor = ({
   user,
   setEdit,
+  setFetchUser,
 }: {
   user: User;
   setEdit: React.Dispatch<React.SetStateAction<any>>;
+  setFetchUser: (id: string, alt?: boolean) => Promise<void>;
 }) => {
   const [editUser, setEditUser] = useState({
     summary: user.about?.summary,
@@ -28,6 +31,7 @@ export const ProfileEditor = ({
   });
   const [picture, setPicture] = useState(user.picture);
   const [startDate, setStartDate] = useState("");
+  const { checkForUser } = useUserContext();
   const containerRef = useDetectClickOutside({
     onTriggered: () => setEdit(false),
   });
@@ -40,7 +44,9 @@ export const ProfileEditor = ({
   const handleSubmit = async () => {
     try {
       await updateUser({ id: user._id, picture: picture, ...editUser });
+      if (user._id) setFetchUser(user._id);
       setEdit(false);
+      if (checkForUser) checkForUser();
     } catch (error) {
       console.log(error);
     }

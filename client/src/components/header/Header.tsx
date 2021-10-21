@@ -19,12 +19,12 @@ export const Header = ({ user }: { user: User | undefined }) => {
   const handleLogout = async () => {
     try {
       await logout();
-      console.log("history");
       if (checkForUser) checkForUser();
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <HeaderWrapper>
       <div>

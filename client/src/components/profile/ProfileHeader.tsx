@@ -24,7 +24,6 @@ export const ProfileHeader = ({
   useEffect(() => {
     if (user?.followers && !followers) {
       checkFollowing(user.followers);
-      console.log("yay");
     }
   });
   const handleFollow = () => {

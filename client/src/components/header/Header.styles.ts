@@ -12,7 +12,7 @@ export const HeaderWrapper = styled.div`
     display: flex;
     align-items: center;
   }
-  margin-bottom: 1rem;
+
   padding-block: 0.2rem;
   @media (max-width: 768px) {
     display: flex;

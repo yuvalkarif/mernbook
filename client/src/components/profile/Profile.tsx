@@ -35,7 +35,11 @@ export const Profile: React.FC = () => {
         />
 
         {user !== undefined && edit && (
-          <ProfileEditor user={user} setEdit={setEdit} />
+          <ProfileEditor
+            user={user}
+            setEdit={setEdit}
+            setFetchUser={setFetchUser}
+          />
         )}
         <Wrapper>
           <ProfileBody className="profile-body">

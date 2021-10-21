@@ -4,8 +4,12 @@ import { Account } from "../../constants/interfaces";
 import { signup } from "../../helpers/api";
 import { FormError } from "../styled/styledTheme";
 import { useError } from "../../hooks/useError";
+import { useTitle } from "../../hooks/useTitle";
+import { useHistory } from "react-router";
 
 export const Signup: React.FC = () => {
+  useTitle("Login | Mernbook");
+  const history = useHistory();
   const [account, setAccount] = useState<Account>({
     username: "",
     displayname: "",
@@ -23,6 +27,9 @@ export const Signup: React.FC = () => {
         checkError(e);
       }
     }
+  };
+  const handleToLogin = () => {
+    history.push("/login");
   };
   return (
     <>
@@ -61,7 +68,7 @@ export const Signup: React.FC = () => {
               ></input>
               <styled.AccentButton type="submit">Sign Up</styled.AccentButton>
             </form>
-            <styled.AltAccentButton type="button">
+            <styled.AltAccentButton type="button" onClick={handleToLogin}>
               Already have an account?
             </styled.AltAccentButton>
           </styled.Main>

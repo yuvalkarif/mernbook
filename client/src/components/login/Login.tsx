@@ -5,12 +5,14 @@ import { login } from "../../helpers/api";
 import { useError } from "../../hooks/useError";
 import { Account } from "../../constants/interfaces";
 import { useHistory } from "react-router";
+import { useTitle } from "../../hooks/useTitle";
 
 export const Login = ({
   checkForUser,
 }: {
   checkForUser: () => Promise<void>;
 }) => {
+  useTitle("Login | Mernbook");
   const [error, checkError] = useError();
   const history = useHistory();
   const [account, setAccount] = useState<Account>({
@@ -26,7 +28,6 @@ export const Login = ({
       try {
         const checkLogin = await login(account);
         if (checkLogin) {
-          console.log("Redirecting");
           await checkForUser();
           history.push("/");
         }
@@ -34,6 +35,9 @@ export const Login = ({
         checkError(e);
       }
     }
+  };
+  const handleSignup = () => {
+    history.push("/signup");
   };
   return (
     <>
@@ -69,7 +73,7 @@ export const Login = ({
                 Log In as Guest
               </styled.OutlineButton>
             </form>
-            <styled.AltAccentButton type="button">
+            <styled.AltAccentButton type="button" onClick={handleSignup}>
               Create New Account
             </styled.AltAccentButton>
           </styled.Main>

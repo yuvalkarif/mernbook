@@ -15,10 +15,11 @@ export const useFollow = () => {
   };
   const toggleFollow = async (userId: string) => {
     if (user?._id && userId) {
-      let follow;
+      let follow: any;
       try {
         follow = await followUser(user._id, userId, isFollowed);
-        console.log(follow);
+        setIsFollowed(!isFollowed);
+        setFollowers(follow);
       } catch (error) {
         console.log(error);
       }
