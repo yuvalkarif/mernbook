@@ -1,8 +1,8 @@
 import { User } from "../../constants/interfaces";
 
-import { BigAvatar, ProfileWrapper, ShortcutIcon } from "./Search.styles";
+import { BigAvatar, ProfileWrapper } from "./Search.styles";
 import { useHistory } from "react-router";
-import { Shortcut } from "@styled-icons/material-rounded";
+
 export const SearchProfile = ({ user }: { user: User }) => {
   const history = useHistory();
   const handleClick = () => {
@@ -15,7 +15,7 @@ export const SearchProfile = ({ user }: { user: User }) => {
         <span>{user.displayname}</span>
         <span>{user?.about?.work || user?.about?.education}</span>
       </div>
-      <ShortcutIcon />
+      {/* <ShortcutIcon /> */}
     </ProfileWrapper>
   );
 };

@@ -61,3 +61,5 @@ export const ProfileWrapper = styled.div`
     }
   }
 `;
+
+export const SkeletonContainer = styled.div``;

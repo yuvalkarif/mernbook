@@ -12,7 +12,7 @@ export const useLike = () => {
 
   const checkLike = (likes: string[] | []) => {
     setLikes(likes);
-    likes.some((like) => like === id) ? setIsLiked(true) : setIsLiked(false);
+    likes?.some((like) => like === id) ? setIsLiked(true) : setIsLiked(false);
   };
 
   const toggleLike = async (postId: string) => {
