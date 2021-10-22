@@ -11,6 +11,8 @@ export const useFetchUser = () => {
       fetchedUser = alt ? await getUser(id) : await getUserByUsername(id);
       if (fetchedUser) {
         setUser(fetchedUser);
+      } else {
+        setError(true);
       }
     } catch (error) {
       setError(true);

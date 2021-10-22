@@ -10,17 +10,22 @@ import { ProfileEditor } from "./ProfileEditor";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useParams } from "react-router";
 import { Header } from "../header/Header";
+import { useHistory } from "react-router";
 
 export const Profile: React.FC = () => {
   const id = "616d4ffeae3c6e194632c815";
-  const [user, setFetchUser] = useFetchUser();
+  const [user, setFetchUser, error] = useFetchUser();
   useTitle((user?.displayname || "Profile") + " | Mernbook");
   const [edit, setEdit] = useState(false);
   const { user: loggedUser } = useUserContext();
   const { username } = useParams<{ username?: string }>();
+  const history = useHistory();
   useEffect(() => {
     if (username && !user) {
       setFetchUser(username, false);
+    }
+    if (error) {
+      history.push("/");
     }
   });
 

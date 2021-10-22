@@ -97,7 +97,7 @@ export const PostContainer = styled(Container)`
   }
   & > p {
     color: ${({ theme }) => theme.btnText};
-    margin-top: 0;
+    margin-block: 0.5rem;
   }
 `;
 

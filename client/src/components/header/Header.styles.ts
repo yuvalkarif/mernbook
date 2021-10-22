@@ -6,22 +6,20 @@ import { Link } from "react-router-dom";
 export const HeaderWrapper = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.containerBg};
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
+
   & > div {
     display: flex;
     align-items: center;
   }
 
   padding-block: 0.2rem;
-  @media (max-width: 768px) {
-    display: flex;
-  }
 `;
 
 export const HeaderProfile = styled.div`
   justify-self: flex-end;
-  margin-right: 1rem;
+  margin-inline: 1rem;
   span {
     font-weight: 600;
     color: ${({ theme }) => theme.btnText};
@@ -43,15 +41,23 @@ export const HeaderSearch = styled.div`
   justify-self: center;
   width: 100%;
   div {
+    display: flex;
+    align-items: center;
     position: relative;
     margin: 0 auto;
+    ${WideButton}
+    max-width: fit-content;
+    padding: 0.5rem 0.5rem;
+    span {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 `;
 
 export const SearchIcon = styled(Search)`
   ${bigIcon}
-  ${WideButton}
-  padding:0.5rem 0.5rem;
 `;
 export const LogoutIcon = styled(Logout)`
   ${bigIcon}
@@ -65,9 +71,10 @@ export const LogoutIcon = styled(Logout)`
 
 export const ProfileButton = styled(Link)`
   ${WideButton}
+
   text-decoration: none;
   border-radius: 2.5rem;
-  padding: 0.35rem;
+
   @media (max-width: 768px) {
     padding: 0;
     margin-left: 0.5rem;

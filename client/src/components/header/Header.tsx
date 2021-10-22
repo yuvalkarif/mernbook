@@ -24,7 +24,9 @@ export const Header = () => {
       console.log(error);
     }
   };
-
+  const handleSearch = () => {
+    history.push("/search");
+  };
   return (
     <HeaderWrapper>
       <div>
@@ -33,12 +35,13 @@ export const Header = () => {
             "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png"
           }
         />
+        <HeaderSearch>
+          <div onClick={handleSearch}>
+            <SearchIcon />
+            <span>Search</span>
+          </div>
+        </HeaderSearch>
       </div>
-      <HeaderSearch>
-        <div>
-          <SearchIcon />
-        </div>
-      </HeaderSearch>
 
       <HeaderProfile>
         <ProfileButton to={`/p/${user?.username}`}>
