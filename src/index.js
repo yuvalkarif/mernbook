@@ -9,7 +9,7 @@ import { errorHandler } from "./helpers/error";
 import compression from "compression";
 import helmet from "helmet";
 dotenv.config();
-//i like git
+
 //Initilizing
 const app = express();
 
