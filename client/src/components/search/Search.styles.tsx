@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container, TextBox, Button } from "../styled/styledTheme";
+import { Container, TextBox, Button, BigImage } from "../styled/styledTheme";
 import { Search } from "@styled-icons/material-rounded";
 
 export const SearchBar = styled.input`
@@ -36,5 +36,28 @@ export const SearchButton = styled(Search)`
   &:hover {
     color: ${({ theme }) => theme.accentBtnBg};
     cursor: pointer;
+  }
+`;
+
+export const BigAvatar = styled(BigImage)``;
+
+export const ProfileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid ${({ theme }) => theme.btnBg};
+  padding: 1rem 0.5rem;
+  div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+
+    span:first-of-type {
+      font-size: 1rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.accentBtnText};
+    }
+    span:last-of-type {
+      font-size: 0.9rem;
+    }
   }
 `;

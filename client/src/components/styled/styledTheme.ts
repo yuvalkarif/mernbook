@@ -32,6 +32,12 @@ export const FormError = styled.p`
   margin: 0;
   text-align: center;
 `;
+export const BigImage = styled.img`
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 100%;
+`;
 export const MediumImage = styled.img`
   width: 40px;
   height: 40px;

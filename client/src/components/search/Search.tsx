@@ -3,9 +3,14 @@ import { Header } from "../header/Header";
 import { SearchBar, SearchButton, SearchContainer } from "./Search.styles";
 import { useState } from "react";
 import { searchUser } from "../../helpers/api";
+import { User } from "../../constants/interfaces";
+import { SearchProfile } from "./SearchProfile";
+import { SearchProfileSkeleton } from "./SearchProfileSkeleton";
 
 export const Search = () => {
   const [query, setQuery] = useState("");
+  const [profiles, setProfiles] = useState<User[] | []>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
@@ -13,10 +18,12 @@ export const Search = () => {
   };
   const handleSearch = async () => {
     if (query !== "") {
+      setIsLoading(true);
       try {
         const results = await searchUser(query);
-        console.log(results);
+        setProfiles(results);
       } catch (error) {}
+      setIsLoading(false);
     }
   };
   return (
@@ -34,6 +41,11 @@ export const Search = () => {
             />
             <SearchButton onClick={handleSearch}>Search</SearchButton>
           </div>
+          {isLoading && <SearchProfileSkeleton />}
+          {profiles.length >= 1 &&
+            profiles.map((profile, i) => {
+              return <SearchProfile user={profile} key={profile._id} />;
+            })}
         </SearchContainer>
       </Wrapper>
     </>
