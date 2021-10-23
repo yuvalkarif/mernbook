@@ -11,26 +11,28 @@ import { useUserContext } from "../../hooks/useUserContext";
 import { useParams } from "react-router";
 import { Header } from "../header/Header";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 export const Profile: React.FC = () => {
-  const id = "616d4ffeae3c6e194632c815";
   const [user, setFetchUser, error] = useFetchUser();
   useTitle((user?.displayname || "Profile") + " | Mernbook");
   const [edit, setEdit] = useState(false);
+
   const { user: loggedUser } = useUserContext();
   const { username } = useParams<{ username?: string }>();
   const history = useHistory();
   useEffect(() => {
-    if (username && !user) {
+    if ((username && !user) || (username && user?.username !== username)) {
       setFetchUser(username, false);
     }
     if (error) {
       history.push("/");
     }
-  });
+  }, [username, user]);
 
   return (
     <>
+      <Link to="/p/yuvalkarif">LINKKK</Link>
       <Header />
       <ProfileWrapper>
         <ProfileHeader
@@ -49,8 +51,12 @@ export const Profile: React.FC = () => {
         <Wrapper>
           <ProfileBody className="profile-body">
             <ProfileAbout about={user?.about} />
-            {user?.posts && (
-              <Feed posts={user.posts} isUser={loggedUser?._id === user?._id} />
+            {user?.posts && console.log(user?.posts)}
+            {user?.posts && user.posts?.length > 0 && (
+              <Feed
+                posts={user?.posts}
+                isUser={loggedUser?._id === user?._id}
+              />
             )}
           </ProfileBody>
         </Wrapper>

@@ -46,10 +46,13 @@ export const ProfileWrapper = styled.div`
   align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.btnBg};
   padding: 1rem 0.5rem;
+  width: 100%;
+  cursor: pointer;
   div {
     display: flex;
     flex-direction: column;
     margin-left: 0.5rem;
+    width: 100%;
 
     span:first-of-type {
       font-size: 1rem;
@@ -62,4 +65,12 @@ export const ProfileWrapper = styled.div`
   }
 `;
 
-export const SkeletonContainer = styled.div``;
+export const SkeletonContainer = styled.div`
+  width: 100%;
+  &:first-of-type {
+    max-width: 10rem;
+  }
+  &:last-of-type {
+    max-width: 15rem;
+  }
+`;

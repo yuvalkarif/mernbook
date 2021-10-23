@@ -10,7 +10,7 @@ import { SearchProfileSkeleton } from "./SearchProfileSkeleton";
 export const Search = () => {
   const [query, setQuery] = useState("");
   const [profiles, setProfiles] = useState<User[] | []>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
@@ -38,10 +38,14 @@ export const Search = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyPress={handleKey}
+              placeholder="Search on Mernbook"
             />
             <SearchButton onClick={handleSearch}>Search</SearchButton>
           </div>
           {isLoading && <SearchProfileSkeleton />}
+          {!isLoading && profiles.length === 0 && (
+            <p>Try searching for other users by their name</p>
+          )}
           {profiles.length >= 1 &&
             profiles.map((profile, i) => {
               return <SearchProfile user={profile} key={profile._id} />;

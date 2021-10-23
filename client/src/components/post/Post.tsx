@@ -14,7 +14,6 @@ import {
   BigLikeIconClicked,
   BigDeleteIcon,
 } from "./Post.styles";
-import { formatRelative, parseISO, format, formatISO9075 } from "date-fns";
 import { PostComments } from "./PostComments";
 import { PostCommentWriter } from "./PostCommentWriter";
 import { Comment } from "../../constants/interfaces";
@@ -25,6 +24,7 @@ import useFocus from "../../hooks/useFocus";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useLike } from "../../hooks/useLike";
 import { formatDate } from "../../helpers/date";
+import { useLinkProfile } from "../../hooks/useLinkProfile";
 
 export const Post = ({
   postId,
@@ -39,29 +39,22 @@ export const Post = ({
   const [comments, setComments] = useState<Comment[] | []>([]);
   const loggedUser = useUserContext();
   const [elRef, setFocus] = useFocus();
+  const [handleLinkToUser] = useLinkProfile();
+
   useEffect(() => {
     if (postId && !post) {
       setFetchPost(postId);
-    }
-    if (post && !user) {
+    } else if (post && !user) {
       setFetchUser(post.creator);
       checkLike(post?.likes);
       setComments(post?.comments);
     }
-  }, [
-    postId,
-    post,
-    user,
-    setFetchPost,
-    setFetchUser,
-    checkLike,
-    comments,
-    setComments,
-  ]);
+  }, [postId, post, user]);
 
   const handleLike = () => {
     toggleLike(postId);
   };
+
   const handleDelete = async () => {
     if (loggedUser?.user?._id) {
       let post: any;
@@ -81,9 +74,14 @@ export const Post = ({
             <BigDeleteIcon onClick={handleDelete}>DELETE</BigDeleteIcon>
           )}
           <span>
-            <MediumImage src={user?.picture} />
+            <MediumImage
+              src={user?.picture}
+              onClick={() => handleLinkToUser(user?.username)}
+            />
             <div>
-              <h4>{user?.displayname}</h4>
+              <h4 onClick={() => handleLinkToUser(user?.username)}>
+                {user?.displayname}
+              </h4>
               <time>{formatDate(post?.date)}</time>
             </div>
           </span>

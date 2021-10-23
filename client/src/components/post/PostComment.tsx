@@ -1,13 +1,11 @@
-import { Comment, User as UserType } from "../../constants/interfaces";
+import { Comment } from "../../constants/interfaces";
 import { useFetchUser } from "../../hooks/useFetchUser";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { CommentPic, CommentWrapper, DeleteIcon } from "./Post.styles";
-
-import UserContext from "../../constants/context";
 import { removeComment } from "../../helpers/api";
-import Skeleton from "react-loading-skeleton";
 import { formatDate } from "../../helpers/date";
-
+import { useUserContext } from "../../hooks/useUserContext";
+import { useLinkProfile } from "../../hooks/useLinkProfile";
 export const PostComment = ({
   comment,
   setComments,
@@ -18,9 +16,10 @@ export const PostComment = ({
   postId: string;
 }) => {
   const [postUser, setFetchUser] = useFetchUser();
-  const { user } = useContext(UserContext);
+  const { user } = useUserContext();
+  const [handleLinkToUser] = useLinkProfile();
   useEffect(() => {
-    if (comment.creator) {
+    if (comment.creator && !postUser) {
       setFetchUser(comment.creator);
     }
   }, [comment, setComments]);
@@ -29,7 +28,6 @@ export const PostComment = ({
     if (user?._id === comment.creator && comment._id) {
       try {
         const newComments: any = await removeComment(comment._id, postId);
-        console.log("NewComments", newComments);
         setComments(newComments);
       } catch (error) {
         console.log(error);
@@ -41,9 +39,18 @@ export const PostComment = ({
       {postUser ? (
         <CommentWrapper>
           <div>
-            {postUser?.picture && <CommentPic src={postUser?.picture} />}
+            {postUser?.picture && (
+              <CommentPic
+                src={postUser?.picture}
+                onClick={() => handleLinkToUser(postUser?.username)}
+              />
+            )}
             <div>
-              {postUser?.displayname && <h5>{postUser?.displayname}</h5>}
+              {postUser?.displayname && (
+                <h5 onClick={() => handleLinkToUser(postUser?.username)}>
+                  {postUser?.displayname}
+                </h5>
+              )}
               {comment.body && <p>{comment.body}</p>}
             </div>
             {user?._id === comment.creator && (

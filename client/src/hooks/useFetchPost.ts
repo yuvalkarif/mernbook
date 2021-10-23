@@ -6,13 +6,12 @@ export const useFetchPost = () => {
   const [post, setPost] = useState<Post | undefined>();
   const [error, setError] = useState<Boolean | undefined>(false);
   const setFetchPost = async (id: string) => {
-    console.log("fetching new post");
-
     try {
       let fetchedPost: any = await getPost(id);
 
       if (fetchedPost) {
         setPost(fetchedPost);
+        console.log(fetchedPost);
       }
     } catch (error) {
       setError(true);

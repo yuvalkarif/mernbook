@@ -6,7 +6,7 @@ export const useFetchUser = () => {
   const [user, setUser] = useState<User | undefined>();
   const [error, setError] = useState<Boolean | undefined>(false);
   const setFetchUser = async (id: string, alt = true) => {
-    let fetchedUser;
+    let fetchedUser: any;
     try {
       fetchedUser = alt ? await getUser(id) : await getUserByUsername(id);
       if (fetchedUser) {

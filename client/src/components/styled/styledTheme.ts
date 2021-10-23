@@ -43,6 +43,10 @@ export const MediumImage = styled.img`
   height: 40px;
   object-fit: cover;
   border-radius: 100%;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(115%);
+  }
 `;
 export const SmallImage = styled.img`
   width: 32px;

@@ -7,7 +7,7 @@ export const SearchProfileSkeleton = () => {
         <Skeleton width={60} height={60} circle={true} />
         <div>
           <SkeletonContainer>
-            <Skeleton height={12.5} />
+            <Skeleton height={10} />
           </SkeletonContainer>
           <SkeletonContainer>
             <Skeleton height={10} />

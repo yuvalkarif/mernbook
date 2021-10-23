@@ -2,7 +2,6 @@ import { PostWriter } from "../post-writer/PostWriter";
 import { Post } from "../post/Post";
 import { useEffect, useReducer, useState } from "react";
 import { FeedWrapper } from "./Feed.styles";
-import { LoadFeed } from "./LoadFeed";
 import { useInView } from "react-intersection-observer";
 
 //-----------------Reducer Setup/Types-----------------//
@@ -14,17 +13,17 @@ type Action =
   | { type: "load_posts" }
   | { type: "load_last" }
   | { type: "add_post"; post: string }
-  | { type: "remove_post"; post: string };
-
+  | { type: "remove_post"; post: string }
+  | { type: "reset_posts"; posts: string[] };
 const reducer = (state: ReducerState, action: Action): ReducerState => {
   switch (action.type) {
     case "load_posts":
       return {
-        ...state,
         postsToRender: [
           ...state.postsToRender,
-          ...state.postsIds.splice(-5).reverse(),
+          ...state.postsIds.slice(0).splice(-5).reverse(),
         ],
+        postsIds: [...state.postsIds.slice(0, -5)],
       };
     case "load_last":
       return {
@@ -43,51 +42,56 @@ const reducer = (state: ReducerState, action: Action): ReducerState => {
           (postToRender) => postToRender !== action.post
         ),
       };
+    case "reset_posts":
+      return {
+        postsToRender: [],
+        postsIds: action.posts,
+      };
   }
 };
-
+//-----------------------------------Component Feed -------------------------------------//
 export const Feed = ({
   posts,
   isUser,
 }: {
-  posts: string[] | [];
+  posts: string[];
   isUser?: boolean;
 }) => {
-  const [state, dispatchPosts] = useReducer(reducer, {
-    postsToRender: [],
-    postsIds: posts,
-  });
   const [ref, inView] = useInView({ threshold: 1 });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
+  const [state, dispatchPosts] = useReducer(reducer, {
+    postsToRender: [],
+    postsIds: posts.slice(0),
+  });
+
   const loadSelector = () => {
-    if (state.postsIds.length >= 5) {
+    if (state.postsIds.length > 5) {
       dispatchPosts({ type: "load_posts" });
-      console.log("loading 5");
-    } else if (state.postsIds.length >> 0) {
+    } else if (state.postsIds.length > 0) {
       dispatchPosts({ type: "load_last" });
-      console.log("loading all");
     }
   };
 
   useEffect(() => {
-    if (state?.postsToRender.length === 0) {
+    if (state.postsToRender.length <= 0 && state.postsIds.length > 0) {
       loadSelector();
-      console.log(posts);
     }
-  });
+  }, [state.postsIds, state.postsToRender]);
 
   useEffect(() => {
-    if (inView && state.postsIds.length >> 0 && isLoaded) {
+    if (state.postsToRender.length !== 0) {
+      dispatchPosts({ type: "reset_posts", posts: posts.slice(0) });
       setIsLoaded(false);
+    }
+  }, [posts]);
+
+  useEffect(() => {
+    if (inView && isLoaded && state.postsIds.length !== 0) {
       loadSelector();
-      console.log("Handling loading");
     }
   }, [inView, isLoaded]);
 
-  // const handleMore = async () => {
-  //   loadSelector();
-  // };
   const handleLoaded = () => {
     if (!isLoaded) {
       setIsLoaded(true);
@@ -98,21 +102,19 @@ export const Feed = ({
     <div>
       {isUser && <PostWriter dispatchPosts={dispatchPosts} />}
       <FeedWrapper>
-        {state?.postsToRender &&
-          state?.postsToRender.map((post, i) => {
+        {state.postsToRender.length > 0 &&
+          state.postsToRender.map((post, i) => {
             if (state.postsToRender.length - 1 === i) {
               handleLoaded();
             }
             return (
-              <Post
-                key={post + i}
-                postId={post}
-                dispatchPosts={dispatchPosts}
-              />
+              <Post key={post} postId={post} dispatchPosts={dispatchPosts} />
             );
           })}
       </FeedWrapper>
-      {isLoaded && <div ref={ref} style={{ marginTop: "1rem" }}></div>}
+      {isLoaded && state.postsIds.length !== 0 && (
+        <div ref={ref} style={{ marginTop: "1rem" }}></div>
+      )}
     </div>
   );
 };

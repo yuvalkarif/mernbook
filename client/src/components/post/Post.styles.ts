@@ -171,7 +171,12 @@ export const ActionButton = styled.button.attrs(
       ? ({ theme }) => theme.accentBtnBg
       : ({ theme }) => theme.mainText};
 `;
-export const CommentPic = styled(SmallImage)``;
+export const CommentPic = styled(SmallImage)`
+  cursor: pointer;
+  &:hover {
+    filter: brightness(115%);
+  }
+`;
 
 export const ShowButton = styled.span`
   font-weight: 600;
