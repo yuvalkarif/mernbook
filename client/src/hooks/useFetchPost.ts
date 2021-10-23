@@ -11,7 +11,6 @@ export const useFetchPost = () => {
 
       if (fetchedPost) {
         setPost(fetchedPost);
-        console.log(fetchedPost);
       }
     } catch (error) {
       setError(true);
